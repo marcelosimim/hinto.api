@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * criada por @llaet
@@ -127,5 +128,24 @@ public class Usuario implements Serializable {
 
     public void setSexo(Sexo sexo) {
         this.sexo = sexo;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Usuario usuario = (Usuario) o;
+        return Objects.equals(id, usuario.id) &&
+                Objects.equals(nome, usuario.nome) &&
+                Objects.equals(email, usuario.email) &&
+                Objects.equals(ultimoAcesso, usuario.ultimoAcesso) &&
+                Objects.equals(dataCriacao, usuario.dataCriacao) &&
+                Objects.equals(ativo, usuario.ativo) &&
+                Objects.equals(dataNascimento, usuario.dataNascimento);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nome, email, ultimoAcesso, dataCriacao, ativo, dataNascimento);
     }
 }
