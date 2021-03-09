@@ -1,0 +1,131 @@
+package br.com.hinto.entidade;
+
+import br.com.hinto.enumeracao.Perfil;
+import br.com.hinto.enumeracao.Sexo;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Date;
+
+/**
+ * criada por @llaet
+ * Classe Entidade Usuario.
+ */
+
+@Entity(name = "Usuario")
+public class Usuario implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @Column(nullable = false)
+    private Perfil perfil;
+    @Column(name = "NOME_USUARIO", nullable = false, length = 75)
+    private String nome;
+    @Column(nullable = false)
+    private String email;
+    @JsonIgnore
+    @Column(nullable = false)
+    private String senha;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    @Column(name = "ULTIMO_ACESSO", nullable = false)
+    private LocalDateTime ultimoAcesso;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    @Column(name = "DATA_CRIACAO", nullable = false, updatable = false)
+    private LocalDateTime dataCriacao;
+    @Column(nullable = false)
+    private Boolean ativo;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    @Column(name = "DATA_NASCIMENTO", nullable = false)
+    private Date dataNascimento;
+    @Column(nullable = true)
+    private Sexo sexo;
+
+    public Usuario(){ }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Perfil getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(Perfil perfil) {
+        this.perfil = perfil;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @JsonIgnore
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public LocalDateTime getUltimoAcesso() {
+        return ultimoAcesso;
+    }
+
+    public void setUltimoAcesso(LocalDateTime ultimoAcesso) {
+        this.ultimoAcesso = ultimoAcesso;
+    }
+
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    public Sexo getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(Sexo sexo) {
+        this.sexo = sexo;
+    }
+}
