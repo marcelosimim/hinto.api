@@ -1,12 +1,21 @@
 package br.com.hinto.entidade;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * criada por @llaet
@@ -27,9 +36,13 @@ public class ListaInteresse implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     @Column(name = "DATA_ATUALIZACAO", nullable = false)
     private LocalDateTime dataAtualizacao;
+    
     @OneToOne
     @JsonIgnore
     private Usuario usuario;
+    
+    @OneToMany
+    private List<Midia> midias = new ArrayList<>();
 
     public ListaInteresse(){}
 
@@ -37,7 +50,15 @@ public class ListaInteresse implements Serializable {
         return id;
     }
 
-    public void setId(Long id) {
+    public List<Midia> getMidias() {
+		return midias;
+	}
+
+	public void setMidias(List<Midia> midias) {
+		this.midias = midias;
+	}
+
+	public void setId(Long id) {
         this.id = id;
     }
 

@@ -3,7 +3,6 @@ package br.com.hinto.entidade;
 import br.com.hinto.enumeracao.Perfil;
 import br.com.hinto.enumeracao.Sexo;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,7 +14,6 @@ import java.util.Objects;
  * criada por @llaet
  * Classe Entidade Usuario.
  */
-
 @Entity(name = "Usuario")
 public class Usuario implements Serializable {
 
@@ -28,9 +26,8 @@ public class Usuario implements Serializable {
     private Perfil perfil;
     @Column(name = "NOME_USUARIO", nullable = false, length = 75)
     private String nome;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
-    @JsonIgnore
     @Column(nullable = false)
     private String senha;
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
@@ -81,7 +78,7 @@ public class Usuario implements Serializable {
         this.email = email;
     }
 
-    @JsonIgnore
+    //@JsonIgnore
     public String getSenha() {
         return senha;
     }
