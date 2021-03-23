@@ -1,14 +1,20 @@
 package br.com.hinto.entidade;
 
-import br.com.hinto.enumeracao.Perfil;
-import br.com.hinto.enumeracao.Sexo;
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import br.com.hinto.enumeracao.Perfil;
+import br.com.hinto.enumeracao.Sexo;
 
 /**
  * criada por @llaet
@@ -28,7 +34,7 @@ public class Usuario implements Serializable {
     private String nome;
     @Column(nullable = false, unique = true)
     private String email;
-    @Column(nullable = false)
+    @Column(length = 64, nullable = false)  
     private String senha;
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     @Column(name = "ULTIMO_ACESSO", nullable = false)
@@ -77,8 +83,7 @@ public class Usuario implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    //@JsonIgnore
+    
     public String getSenha() {
         return senha;
     }
