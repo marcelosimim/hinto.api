@@ -2,12 +2,17 @@ package br.com.hinto.servico.impl;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.hinto.entidade.Usuario;
+import br.com.hinto.entidade.dto.UsuarioCriadoDTO;
+import br.com.hinto.entidade.dto.UsuarioRetornadoDTO;
+import br.com.hinto.enumeracao.Perfil;
+import br.com.hinto.enumeracao.Sexo;
+import br.com.hinto.excecao.DadosIncorretosException;
 import br.com.hinto.repositorio.UsuarioDAO;
 import br.com.hinto.servico.UsuarioServico;
 
@@ -22,41 +27,107 @@ public class UsuarioServicoImpl implements UsuarioServico {
 	private UsuarioDAO dao;
 
 	@Override
-	public Usuario salvar(Usuario usuario) {
-		// TODO Auto-generated method stub
+	public UsuarioRetornadoDTO salvar(UsuarioCriadoDTO dto) {
+		//cria usuario a partir do dto recebido
+		Usuario usuario = this.toUsuario(dto);
+		this.dao.saveAndFlush(usuario);
+		
+		return this.toDTO(usuario);
+	}
+	
+	/**
+	 * cria um objeto Usuario a partir de um objeto de transferencia.
+	 * @param dto
+	 * @return um objeto Usuario.
+	 */
+	private Usuario toUsuario(UsuarioCriadoDTO dto) {
+		Usuario usuario = new Usuario();
+		
+		usuario.setId(null);
+		usuario.setNome(dto.getNome());
+		usuario.setEmail(dto.getEmail());
+		usuario.setSenha(dto.getSenha());
+		usuario.setDataNascimento(dto.getDataNascimento());
+		usuario.setPerfil(Perfil.USUARIO);
 		usuario.setAtivo(Boolean.TRUE);
 		usuario.setDataCriacao(LocalDateTime.now());
 		usuario.setUltimoAcesso(LocalDateTime.now());
-		return this.dao.save(usuario);
+		usuario.setSexo(dto.getSexo() == null ? Sexo.NAO_INFORMADO : dto.getSexo());
+		
+		return usuario;
+	}
+	
+	/**
+	 * cria um objeto de transferencia a partir da entidade.
+	 * @param usuario
+	 * @return dto de Usuario.
+	 */
+	private UsuarioRetornadoDTO toDTO(Usuario usuario) {
+		return new UsuarioRetornadoDTO(usuario);		
 	}
 
 	@Override
 	public void deletar(Long idUsuario) {
-		// TODO Auto-generated method stub
+		//verifica se o usuario existe
+		this.encontrarPorId(idUsuario);
+		
 		this.dao.deleteById(idUsuario);
 	}
 
 	@Override
-	public Usuario atualizar(Long idUsuario) {
-		// TODO Auto-generated method stub
-		return this.dao.updateById(idUsuario);
-	}
-
-	@Override
-	public List<Usuario> encontrarTodos() {
-		// TODO Auto-generated method stub
-		return this.dao.findAll();
-	}
-
-	@Override
-	public Optional<Usuario> encontrarPorId(Long idUsuario) {
-		// TODO Auto-generated method stub
-		Optional<Usuario> usuario = this.dao.findById(idUsuario);
+	public UsuarioRetornadoDTO atualizar(UsuarioCriadoDTO usuario, Long idUsuario) {
+		// verifica se o usuário existe pelo método find by id
+		this.encontrarPorId(idUsuario);
 		
-		if (usuario == null) {
-			throw new IllegalArgumentException("Usuário não encontrado!");
+		Usuario entidadeUsuario = this.dao.findById(idUsuario).get();
+		entidadeUsuario = this.atualizar(usuario, entidadeUsuario);
+		
+		this.dao.saveAndFlush(entidadeUsuario);
+		
+		return this.toDTO(entidadeUsuario);		
+	}
+	
+	/**
+	 * método interno para atualizar os campos possíveis, conforme interface com usuário.
+	 * @param dto
+	 * @param usuario
+	 * @return objeto Usuario com campos atualizados.
+	 */
+	private Usuario atualizar(UsuarioCriadoDTO dto, Usuario usuario) {
+		if (dto.getDataNascimento() != null) {
+			usuario.setDataNascimento(dto.getDataNascimento());
+		}
+		if (dto.getNome() != null) {
+			usuario.setNome(dto.getNome());
+		}
+		if (dto.getSenha() != null) {
+			usuario.setSenha(dto.getSenha());
+		}
+		if (dto.getSexo() != null) {
+			usuario.setSexo(dto.getSexo());
 		}
 		return usuario;
+	}
+
+	@Override
+	public List<UsuarioRetornadoDTO> encontrarTodos() {
+		//uso da API stream do Java. Busca todos usuarios, mapeia um por um criando o dto e insere em uma lista.
+		List<UsuarioRetornadoDTO> usuarios = this.dao.findAll().stream()
+				.map(usuario -> new UsuarioRetornadoDTO(usuario))
+				.collect(Collectors.toList());
+		
+		return usuarios;
+	}
+
+	@Override
+	public UsuarioRetornadoDTO encontrarPorId(Long idUsuario) {
+		
+		Usuario usuario = this.dao.findById(idUsuario).get();
+	
+		if (usuario == null) {
+			throw new DadosIncorretosException("Usuário não encontrado!");
+		}
+		return this.toDTO(usuario);
 	}
 
 }

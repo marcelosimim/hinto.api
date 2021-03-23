@@ -1,7 +1,8 @@
 package br.com.hinto.controlador;
 
 import java.util.List;
-import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,8 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.hinto.entidade.Usuario;
-import br.com.hinto.servico.impl.UsuarioServicoImpl;
+import br.com.hinto.entidade.dto.UsuarioCriadoDTO;
+import br.com.hinto.entidade.dto.UsuarioRetornadoDTO;
+import br.com.hinto.servico.UsuarioServico;
 
 /**
  * criada por @llaet
@@ -25,30 +27,30 @@ import br.com.hinto.servico.impl.UsuarioServicoImpl;
 public class UsuarioControlador {
 	
 	@Autowired
-	private UsuarioServicoImpl servico;
+	private UsuarioServico servico;
 	
 	@PostMapping
-	public Usuario salvar(@RequestBody Usuario usuario) {
+	public UsuarioRetornadoDTO salvar(@Valid @RequestBody UsuarioCriadoDTO usuario) {
 		return this.servico.salvar(usuario);
 	}
 
-	@DeleteMapping
-	public void deletar(Long idUsuario) {
+	@DeleteMapping("/{idUsuario}")
+	public void deletar(@PathVariable("idUsuario") Long idUsuario) {
 		this.servico.deletar(idUsuario);
 	}
 
-	@PutMapping
-	public Usuario atualizar(Long idUsuario) {
-		return this.servico.atualizar(idUsuario);
+	@PutMapping("/{idUsuario}")
+	public UsuarioRetornadoDTO atualizar(@Valid @RequestBody UsuarioCriadoDTO usuario, @PathVariable("idUsuario") Long idUsuario) {
+		return this.servico.atualizar(usuario, idUsuario);
 	}
 
 	@GetMapping
-	public List<Usuario> encontrarTodos() {
+	public List<UsuarioRetornadoDTO> encontrarTodos() {
 		return this.servico.encontrarTodos();
 	}
 
 	@GetMapping("/{idUsuario}")
-	public Optional<Usuario> encontrarPorId(@PathVariable("idUsuario") Long idUsuario) {
+	public UsuarioRetornadoDTO encontrarPorId(@PathVariable("idUsuario") Long idUsuario) {
 		return this.servico.encontrarPorId(idUsuario);
 	}
 

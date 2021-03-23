@@ -1,9 +1,9 @@
 package br.com.hinto.servico;
 
 import java.util.List;
-import java.util.Optional;
 
-import br.com.hinto.entidade.Usuario;
+import br.com.hinto.entidade.dto.UsuarioCriadoDTO;
+import br.com.hinto.entidade.dto.UsuarioRetornadoDTO;
 
 /**
  * criada por @llaet
@@ -11,9 +11,9 @@ import br.com.hinto.entidade.Usuario;
  */
 public interface UsuarioServico {
 	
-	public Usuario salvar(Usuario usuario);
+	public UsuarioRetornadoDTO salvar(UsuarioCriadoDTO dto);
 	public void deletar(Long idUsuario);
-	public Usuario atualizar(Long idUsuario);
-	public List<Usuario> encontrarTodos();
-	public Optional<Usuario> encontrarPorId(Long idUsuario);
+	public UsuarioRetornadoDTO atualizar(UsuarioCriadoDTO usuario, Long idUsuario);
+	public List<UsuarioRetornadoDTO> encontrarTodos();
+	public UsuarioRetornadoDTO encontrarPorId(Long idUsuario);
 }
