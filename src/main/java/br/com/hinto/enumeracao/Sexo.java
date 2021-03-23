@@ -8,7 +8,11 @@ public enum Sexo {
 
     private Integer codigoSexo;
 
-    Sexo(Integer codigoSexoexo){
+    Sexo(Integer codigoSexo){
         this.codigoSexo = codigoSexo;
+    }
+    
+    public Integer getCodigoSexo() {
+    	return this.codigoSexo;
     }
 }

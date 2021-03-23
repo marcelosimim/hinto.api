@@ -10,4 +10,8 @@ public enum Perfil {
     Perfil(Integer codigoPerfil){
         this.codigoPerfil = codigoPerfil;
     }
+    
+    public Integer getCodigoPerfil() {
+    	return this.codigoPerfil;
+    }
 }
