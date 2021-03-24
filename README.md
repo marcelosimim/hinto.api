@@ -1,0 +1,30 @@
+# Hinto API
+
+## API do sistema HINTO - uma lista de filmes e animes, com recomendações personalizadas
+
+### Tecnologias
+
+ - Java 11
+ - Git 2.9.0
+ - Maven 3.6
+ - Spring boot 2.4
+
+**Testes**
+ - H2
+ - JUnit
+ 
+###### Como clonar o projeto
+	git clone https://github.com/marcelosimim/hinto.api.git
+
+###### Como rodar o projeto com Maven
+	Na pasta do projeto:
+	cd hinto.api
+  	mvn run
+
+###### Verbos Http da API:
+        Criar Usuário	          | POST   | /usuario - conteúdo do corpo da requisição: application/json
+  	Atualizar Usuário por ID  | PUT    | /usuario/{id} - conteúdo do corpo da requisição: application/json | variável da URI: Integer id
+  	Deletar Usuário por ID	  | DELETE | /usuario/{id} - variável da URI: Integer id
+	Obter Produto por ID      | GET    | /usuario/{id} - variável da URI: Integer id
+  	Obter todos os Usuários	  | GET    | /usuario
+
