@@ -1,0 +1,6 @@
+br\com\hinto\entidade\dto\MidiaRetornadoDTO.class
+br\com\hinto\repositorio\MidiaDAO.class
+br\com\hinto\servico\MidiaServico.class
+br\com\hinto\servico\impl\MidiaServicoImpl.class
+br\com\hinto\entidade\dto\MidiaCriadoDTO.class
+br\com\hinto\controlador\MidiaControlador.class
