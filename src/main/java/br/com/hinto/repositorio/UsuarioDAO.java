@@ -11,4 +11,6 @@ import br.com.hinto.entidade.Usuario;
  */
 @Repository
 public interface UsuarioDAO extends JpaRepository<Usuario, Long> {
+
+	Usuario findByEmail(String email);
 }

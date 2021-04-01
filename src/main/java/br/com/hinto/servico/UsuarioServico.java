@@ -16,4 +16,5 @@ public interface UsuarioServico {
 	public UsuarioRetornadoDTO atualizar(UsuarioCriadoDTO usuario, Long idUsuario);
 	public List<UsuarioRetornadoDTO> encontrarTodos();
 	public UsuarioRetornadoDTO encontrarPorId(Long idUsuario);
+	public UsuarioRetornadoDTO encontrarPorEmail(String email);
 }

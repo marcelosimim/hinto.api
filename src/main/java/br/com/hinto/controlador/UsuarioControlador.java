@@ -53,5 +53,10 @@ public class UsuarioControlador {
 	public UsuarioRetornadoDTO encontrarPorId(@PathVariable("idUsuario") Long idUsuario) {
 		return this.servico.encontrarPorId(idUsuario);
 	}
+	
+	@GetMapping("/email={email}")
+	public UsuarioRetornadoDTO encontrarPorEmail(@PathVariable("email") String email) {
+		return this.servico.encontrarPorEmail(email);
+	}
 
 }

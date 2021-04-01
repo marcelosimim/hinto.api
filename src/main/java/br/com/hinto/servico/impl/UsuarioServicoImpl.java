@@ -122,8 +122,19 @@ public class UsuarioServicoImpl implements UsuarioServico {
 	@Override
 	public UsuarioRetornadoDTO encontrarPorId(Long idUsuario) {
 		
+	
 		Usuario usuario = this.dao.findById(idUsuario).get();
 	
+		if (usuario == null) {
+			throw new DadosIncorretosException("Usuário não encontrado!");
+		}
+		return this.toDTO(usuario);
+	}
+	
+	@Override
+	public UsuarioRetornadoDTO encontrarPorEmail(String email) {
+		Usuario usuario = this.dao.findByEmail(email);
+		
 		if (usuario == null) {
 			throw new DadosIncorretosException("Usuário não encontrado!");
 		}
