@@ -21,10 +21,17 @@
 	cd hinto.api
   	mvn run
 
-###### Verbos Http da API:
+###### Verbos para [Usuario] Http da API:
         Criar Usuário	          | POST   | /usuario - conteúdo do corpo da requisição: application/json
   	Atualizar Usuário por ID  | PUT    | /usuario/{id} - conteúdo do corpo da requisição: application/json | variável da URI: Integer id
   	Deletar Usuário por ID	  | DELETE | /usuario/{id} - variável da URI: Integer id
 	Obter Produto por ID      | GET    | /usuario/{id} - variável da URI: Integer id
   	Obter todos os Usuários	  | GET    | /usuario
+	
+###### Verbos para [Midia] Http da API:
+        Criar Mídia	          | POST   | /midia - conteúdo do corpo da requisição: application/json
+  	Atualizar Mídia por ID    | PUT    | /midia/{id} - conteúdo do corpo da requisição: application/json | variável da URI: Integer id
+  	Deletar Mídia por ID	  | DELETE | /midia/{id} - variável da URI: Integer id
+	Obter Mídia por ID        | GET    | /midia/{id} - variável da URI: Integer id
+  	Obter todos as Mídias	  | GET    | /midia
 
