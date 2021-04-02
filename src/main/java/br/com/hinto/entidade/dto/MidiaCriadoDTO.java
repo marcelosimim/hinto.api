@@ -4,68 +4,39 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
-import javax.validation.constraints.Size;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import br.com.hinto.entidade.Artista;
 import br.com.hinto.entidade.Genero;
-import br.com.hinto.entidade.Midia;
 import br.com.hinto.enumeracao.TipoMidia;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class MidiaCriadoDTO implements Serializable {
 	
     private static final long serialVersionUID = 1L;
 
-    @NotNull
-    @Size(max = 75, message = "O tamanho máximo do nome deve ser 75 caracteres")
-    private String titulo;
-
-    @Null
-    @Size(max = 255, message = "O tamanho máximo do nome deve ser 255 caracteres.")
-    private String imagemURL;
-
-    @NotNull
-    private String sinopse;
-
-    @NotNull
+    private Integer mal_id;
+    private String image_url;
+    private String title;
+    private String synopsis;
+    private Date start_date;
     private TipoMidia tipo;
-
-    //Nao tenho ideia do que seja essa afinidade, então to incluindo... qualquer coisa tira dps
-    //Confesso que também não! Att: dev cansado.
-    @NotNull
-    private Boolean afinidade;
-
-    @NotNull
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private Date dataLancamento;
     
-    private List<Genero> generos = new ArrayList<>();
     private List<Artista> artistas = new ArrayList<>();
+    private List<Genero> generos = new ArrayList<>();
 
     public MidiaCriadoDTO(){ }
-
-    public MidiaCriadoDTO(@NotNull @Size(max = 75, message = "O tamanho máximo do nome deve ser 75 caracteres") String titulo,
-                          @NotNull @Size(max = 2255, message = "O tamanho máximo do email deve ser 255 caracteres") String imagemURL,
-                          @NotNull String sinopse,
-                          @NotNull TipoMidia tipo,
-                          @NotNull Date dataLancamento, Boolean afinidade,
-                          List<Genero> generos, List<Artista> artistas){
-        this.titulo = titulo;
-        this.imagemURL = imagemURL;
-        this.sinopse = sinopse;
-        this.tipo = tipo;
-        this.afinidade = afinidade;
-        this.dataLancamento = dataLancamento;
-        this.generos = generos;
-        this.artistas = artistas;
-    }
-
-    public List<Genero> getGeneros() {
+    
+	public List<Artista> getArtistas() {
+		return artistas;
+	}
+	
+	public void setArtistas(List<Artista> artistas) {
+		this.artistas = artistas;
+	}
+	
+	public List<Genero> getGeneros() {
 		return generos;
 	}
 
@@ -73,77 +44,101 @@ public class MidiaCriadoDTO implements Serializable {
 		this.generos = generos;
 	}
 
-	public List<Artista> getArtistas() {
-		return artistas;
+	public Integer getMal_id() {
+		return mal_id;
 	}
 
-	public void setArtistas(List<Artista> artistas) {
-		this.artistas = artistas;
+	public void setMal_id(Integer mal_id) {
+		this.mal_id = mal_id;
 	}
 
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setImagemURL(String imagemURL) {
-		this.imagemURL = imagemURL;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public void setSinopse(String sinopse) {
-		this.sinopse = sinopse;
+	public String getImage_url() {
+		return image_url;
+	}
+
+	public void setImage_url(String image_url) {
+		this.image_url = image_url;
+	}
+
+	public String getSynopsis() {
+		return synopsis;
+	}
+
+	public void setSynopsis(String synopsis) {
+		this.synopsis = synopsis;
+	}
+
+	public Date getStart_date() {
+		return start_date;
+	}
+
+	public void setStart_date(Date start_date) {
+		this.start_date = start_date;
+	}
+
+	public TipoMidia getTipo() {
+		return tipo;
 	}
 
 	public void setTipo(TipoMidia tipo) {
 		this.tipo = tipo;
 	}
 
-	public void setAfinidade(Boolean afinidade) {
-		this.afinidade = afinidade;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((image_url == null) ? 0 : image_url.hashCode());
+		result = prime * result + ((synopsis == null) ? 0 : synopsis.hashCode());
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
+		return result;
 	}
 
-	public void setDataLancamento(Date dataLancamento) {
-		this.dataLancamento = dataLancamento;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		MidiaCriadoDTO other = (MidiaCriadoDTO) obj;
+		if (image_url == null) {
+			if (other.image_url != null)
+				return false;
+		} else if (!image_url.equals(other.image_url))
+			return false;
+		if (synopsis == null) {
+			if (other.synopsis != null)
+				return false;
+		} else if (!synopsis.equals(other.synopsis))
+			return false;
+		if (title == null) {
+			if (other.title != null)
+				return false;
+		} else if (!title.equals(other.title))
+			return false;
+		return true;
 	}
 
-	public String getTitulo() {
-        return titulo;
-    }
-
-    public String getImagemURL() {
-        return imagemURL;
-    }
-
-    public String getSinopse() {
-        return sinopse;
-    }
-
-    public TipoMidia getTipo() {
-        return tipo;
-    }
-
-    public Boolean getAfinidade() {
-        return afinidade;
-    }
-
-    public Date getDataLancamento() {
-        return dataLancamento;
-    }
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Midia midia = (Midia) o;
-        return Objects.equals(titulo, midia.getTitulo()) &&
-                Objects.equals(imagemURL, midia.getImagemURL()) &&
-                Objects.equals(sinopse, midia.getSinopse()) &&
-                Objects.equals(afinidade, midia.getAfinidade()) &&
-                Objects.equals(tipo, midia.getTipo());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(titulo, imagemURL, sinopse, afinidade, tipo);
-    }
-
-
+	@Override
+	public String toString() {
+		return "MidiaCriadoDTO {"
+					+ "mal_id=" + mal_id + ", "
+					+ "title=" + title + ", "
+					+ "image_url=" + image_url + ", " 
+					+ "synopsis=" + synopsis + ", "
+					+ "start_date=" + start_date + ", "
+					+ "artistas= [" + artistas + ", "
+					+ "generos= [" + generos + ", "
+					+ "}";
+	}  
 }

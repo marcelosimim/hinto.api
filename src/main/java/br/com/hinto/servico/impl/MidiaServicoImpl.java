@@ -26,12 +26,12 @@ public class MidiaServicoImpl implements MidiaServico {
         Midia midia = new Midia();
 
         midia.setId(null);
-        midia.setAfinidade(dto.getAfinidade());
-        midia.setDataLancamento(dto.getDataLancamento());
+        //midia.setAfinidade(dto.getAfinidade());
+        midia.setDataLancamento(dto.getStart_date());
         midia.setTipo(dto.getTipo());
-        midia.setImagemURL(dto.getImagemURL());
-        midia.setSinopse(dto.getSinopse());
-        midia.setTitulo(dto.getTitulo());
+        midia.setImagemURL(dto.getImage_url());
+        midia.setSinopse(dto.getSynopsis());
+        midia.setTitulo(dto.getTitle());
         midia.setArtistas(dto.getArtistas());
         midia.setGeneros(dto.getGeneros());
 
@@ -85,20 +85,14 @@ public class MidiaServicoImpl implements MidiaServico {
     }
 
     private Midia atualizar(MidiaCriadoDTO dto, Midia midia) {
-        if (dto.getSinopse() != null) {
-            midia.setSinopse(dto.getSinopse());
+        if (dto.getSynopsis() != null) {
+            midia.setSinopse(dto.getSynopsis());
         }
-        if (dto.getAfinidade() != null) {
-            midia.setAfinidade(dto.getAfinidade());
+        if (dto.getStart_date() != null) {
+            midia.setDataLancamento(dto.getStart_date());
         }
-        if (dto.getTipo() != null) {
-            midia.setTipo(dto.getTipo());
-        }
-        if (dto.getDataLancamento() != null) {
-            midia.setDataLancamento(dto.getDataLancamento());
-        }
-        if (dto.getImagemURL() != null) {
-            midia.setImagemURL(dto.getImagemURL());
+        if (dto.getImage_url() != null) {
+            midia.setImagemURL(dto.getImage_url());
         }
         return midia;
     }
