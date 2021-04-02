@@ -4,10 +4,8 @@ import br.com.hinto.entidade.Midia;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import br.com.hinto.entidade.Usuario;
-
 /**
- * criada por @llaet
+ * criada por 
  * Interface Repositório Usuario.
  */
 @Repository
