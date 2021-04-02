@@ -32,6 +32,8 @@ public class MidiaServicoImpl implements MidiaServico {
         midia.setImagemURL(dto.getImagemURL());
         midia.setSinopse(dto.getSinopse());
         midia.setTitulo(dto.getTitulo());
+        midia.setArtistas(dto.getArtistas());
+        midia.setGeneros(dto.getGeneros());
 
         return midia;
     }

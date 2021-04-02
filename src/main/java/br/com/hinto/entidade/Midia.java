@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -44,10 +45,10 @@ public class Midia implements Serializable {
 	@Column(nullable = true)
 	private Boolean afinidade;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.PERSIST)
 	private List<Artista> artistas = new ArrayList<>();
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.PERSIST)
 	private List<Genero> generos = new ArrayList<>();
 	
 	public Midia() {}
