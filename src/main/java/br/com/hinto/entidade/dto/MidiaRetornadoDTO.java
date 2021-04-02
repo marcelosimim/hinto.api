@@ -1,17 +1,19 @@
 package br.com.hinto.entidade.dto;
 
-import br.com.hinto.entidade.Artista;
-import br.com.hinto.entidade.Genero;
-import br.com.hinto.entidade.Midia;
-import br.com.hinto.entidade.Usuario;
-import br.com.hinto.enumeracao.TipoMidia;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class MidiaRetornadoDTO {
-    private static final long serialVersionUID = 1L;
+import br.com.hinto.entidade.Artista;
+import br.com.hinto.entidade.Genero;
+import br.com.hinto.entidade.Midia;
+import br.com.hinto.enumeracao.TipoMidia;
+
+public class MidiaRetornadoDTO implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
     private Long id;
     private String titulo;
@@ -50,6 +52,42 @@ public class MidiaRetornadoDTO {
     public int hashCode() {
         return Objects.hash(id, titulo, dataLancamento);
     }
+    
+    public Long getId() {
+		return id;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public String getImagemURL() {
+		return imagemURL;
+	}
+
+	public String getSinopse() {
+		return sinopse;
+	}
+
+	public TipoMidia getTipo() {
+		return tipo;
+	}
+
+	public Date getDataLancamento() {
+		return dataLancamento;
+	}
+
+	public Boolean getAfinidade() {
+		return afinidade;
+	}
+
+	public List<Artista> getArtistas() {
+		return artistas;
+	}
+
+	public List<Genero> getGeneros() {
+		return generos;
+	}
 
     public void setId(Long id) {
         this.id = id;

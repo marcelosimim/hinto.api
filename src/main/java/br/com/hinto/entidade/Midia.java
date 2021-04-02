@@ -37,7 +37,7 @@ public class Midia implements Serializable {
 	@Column(nullable = false)
 	private TipoMidia tipo;
 	
-	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	@Column(nullable = true)
 	private Date dataLancamento;
 	

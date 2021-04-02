@@ -12,6 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/midia")
 public class MidiaControlador {
+	
     @Autowired
     private MidiaServico servico;
 

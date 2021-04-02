@@ -1,16 +1,20 @@
 package br.com.hinto.entidade.dto;
 
-import br.com.hinto.entidade.Midia;
-import br.com.hinto.enumeracao.TipoMidia;
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.validation.constraints.Null;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class MidiaCriadoDTO {
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import br.com.hinto.entidade.Midia;
+import br.com.hinto.enumeracao.TipoMidia;
+
+public class MidiaCriadoDTO implements Serializable {
+	
     private static final long serialVersionUID = 1L;
 
     @NotNull
@@ -50,7 +54,31 @@ public class MidiaCriadoDTO {
         this.dataLancamento = dataLancamento;
     }
 
-    public String getTitulo() {
+    public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public void setImagemURL(String imagemURL) {
+		this.imagemURL = imagemURL;
+	}
+
+	public void setSinopse(String sinopse) {
+		this.sinopse = sinopse;
+	}
+
+	public void setTipo(TipoMidia tipo) {
+		this.tipo = tipo;
+	}
+
+	public void setAfinidade(Boolean afinidade) {
+		this.afinidade = afinidade;
+	}
+
+	public void setDataLancamento(Date dataLancamento) {
+		this.dataLancamento = dataLancamento;
+	}
+
+	public String getTitulo() {
         return titulo;
     }
 
