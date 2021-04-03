@@ -42,8 +42,7 @@ public class UsuarioServicoImpl implements UsuarioServico {
 	 */
 	private Usuario toUsuario(UsuarioCriadoDTO dto) {
 		Usuario usuario = new Usuario();
-		
-		usuario.setId(null);
+
 		usuario.setNome(dto.getNome());
 		usuario.setEmail(dto.getEmail());
 		usuario.setSenha(dto.getSenha());

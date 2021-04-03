@@ -1,6 +1,6 @@
 package br.com.hinto.controlador;
 
-import br.com.hinto.entidade.dto.MidiaCriadoDTO;
+import br.com.hinto.entidade.dto.MidiaAnimeCriadoDTO;
 import br.com.hinto.entidade.dto.MidiaRetornadoDTO;
 import br.com.hinto.servico.MidiaServico;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class MidiaControlador {
     private MidiaServico servico;
 
     @PostMapping
-    public MidiaRetornadoDTO salvar(@Valid @RequestBody MidiaCriadoDTO midiaCriadoDTO){
+    public MidiaRetornadoDTO salvar(@Valid @RequestBody MidiaAnimeCriadoDTO midiaCriadoDTO){
         return this.servico.salvar(midiaCriadoDTO);
     }
 
@@ -27,7 +27,7 @@ public class MidiaControlador {
     }
 
     @PutMapping("/{idMidia}")
-    public void atualizar(@Valid @RequestBody MidiaCriadoDTO midia, @PathVariable("idMidia") Long idMidia){
+    public void atualizar(@Valid @RequestBody MidiaAnimeCriadoDTO midia, @PathVariable("idMidia") Long idMidia){
         this.servico.atualizar(midia, idMidia);
     }
 

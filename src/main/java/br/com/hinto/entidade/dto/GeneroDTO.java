@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import br.com.hinto.entidade.Genero;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GeneroDTO implements Serializable {
 	
@@ -12,7 +14,12 @@ public class GeneroDTO implements Serializable {
     private Long id;
 	private String name;
 	
-	public GeneroDTO() {}	
+	public GeneroDTO() {}
+	
+	public GeneroDTO(Genero genero) {
+		this.id = genero.getId();
+		this.name = genero.getDescricao();
+	}
 	
 	public Long getId() {
 		return id;

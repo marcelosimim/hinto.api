@@ -12,7 +12,7 @@ import br.com.hinto.entidade.Genero;
 import br.com.hinto.enumeracao.TipoMidia;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class MidiaCriadoDTO implements Serializable {
+public class MidiaAnimeCriadoDTO implements Serializable {
 	
     private static final long serialVersionUID = 1L;
 
@@ -21,12 +21,12 @@ public class MidiaCriadoDTO implements Serializable {
     private String title;
     private String synopsis;
     private Date start_date;
-    private TipoMidia tipo;
+    private TipoMidia tipo = TipoMidia.ANIME;
     
     private List<Artista> artistas = new ArrayList<>();
     private List<Genero> generos = new ArrayList<>();
 
-    public MidiaCriadoDTO(){ }
+    public MidiaAnimeCriadoDTO(){ }
     
 	public List<Artista> getArtistas() {
 		return artistas;
@@ -110,7 +110,7 @@ public class MidiaCriadoDTO implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		MidiaCriadoDTO other = (MidiaCriadoDTO) obj;
+		MidiaAnimeCriadoDTO other = (MidiaAnimeCriadoDTO) obj;
 		if (image_url == null) {
 			if (other.image_url != null)
 				return false;

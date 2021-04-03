@@ -1,6 +1,6 @@
 package br.com.hinto.servico.impl;
 
-import br.com.hinto.entidade.dto.MidiaCriadoDTO;
+import br.com.hinto.entidade.dto.MidiaAnimeCriadoDTO;
 import br.com.hinto.entidade.dto.MidiaRetornadoDTO;
 import br.com.hinto.entidade.Midia;
 import br.com.hinto.excecao.DadosIncorretosException;
@@ -22,10 +22,9 @@ public class MidiaServicoImpl implements MidiaServico {
         return new MidiaRetornadoDTO(midia);
     }
 
-    private Midia toMidia(MidiaCriadoDTO dto) {
+    private Midia toMidia(MidiaAnimeCriadoDTO dto) {
         Midia midia = new Midia();
 
-        midia.setId(null);
         //midia.setAfinidade(dto.getAfinidade());
         midia.setDataLancamento(dto.getStart_date());
         midia.setTipo(dto.getTipo());
@@ -39,7 +38,7 @@ public class MidiaServicoImpl implements MidiaServico {
     }
 
     @Override
-    public MidiaRetornadoDTO salvar(MidiaCriadoDTO dto) {
+    public MidiaRetornadoDTO salvar(MidiaAnimeCriadoDTO dto) {
         Midia midia = this.toMidia(dto);
         this.dao.saveAndFlush(midia);
 
@@ -54,7 +53,7 @@ public class MidiaServicoImpl implements MidiaServico {
     }
 
     @Override
-    public MidiaRetornadoDTO atualizar(MidiaCriadoDTO midia, Long idMidia) {
+    public MidiaRetornadoDTO atualizar(MidiaAnimeCriadoDTO midia, Long idMidia) {
         this.encontrarPorId(idMidia);
 
         Midia midiaEntidade = this.dao.findById(idMidia).get();
@@ -84,7 +83,7 @@ public class MidiaServicoImpl implements MidiaServico {
         return this.toDTO(midia);
     }
 
-    private Midia atualizar(MidiaCriadoDTO dto, Midia midia) {
+    private Midia atualizar(MidiaAnimeCriadoDTO dto, Midia midia) {
         if (dto.getSynopsis() != null) {
             midia.setSinopse(dto.getSynopsis());
         }

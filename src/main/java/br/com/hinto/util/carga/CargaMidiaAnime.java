@@ -1,7 +1,6 @@
 package br.com.hinto.util.carga;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,8 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
 import br.com.hinto.entidade.Genero;
-import br.com.hinto.enumeracao.TipoMidia;
-import br.com.hinto.servico.impl.GeneroServiceImpl;
+import br.com.hinto.servico.impl.GeneroServicoImpl;
 import br.com.hinto.servico.impl.MidiaServicoImpl;
 
 @Configuration
@@ -32,7 +30,7 @@ public class CargaMidiaAnime {
 	@Autowired
 	private MidiaServicoImpl servico;
 	@Autowired
-	private GeneroServiceImpl generoServico;
+	private GeneroServicoImpl generoServico;
 	
 	@Bean
 	public RestTemplate getRestTemplate(RestTemplateBuilder builder) {
@@ -50,11 +48,8 @@ public class CargaMidiaAnime {
 				//busca os generos de cada top anime encontrado
 				AnimeJSON jsonGenero = restTemplate.getForObject(this.URL_BASE_ANIME.concat(midia.getMal_id().toString()), AnimeJSON.class);
 				
-				midia.setTipo(TipoMidia.ANIME);
-				//mapeia os generos DTO para Genero
-				List<Genero> generos = jsonGenero.getGenres().stream()
-						.map(genero -> this.generoServico.toGenero(genero))
-						.collect(Collectors.toList());
+				//mapeia os generos DTO para Genero				
+				List<Genero> generos = this.generoServico.salvarTodos(jsonGenero.getGenres());
 				
 				midia.setGeneros(generos);
 				

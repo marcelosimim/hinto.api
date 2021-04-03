@@ -5,13 +5,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -45,10 +44,10 @@ public class Midia implements Serializable {
 	@Column(nullable = true)
 	private Boolean afinidade;
 	
-	@OneToMany(cascade = CascadeType.PERSIST)
+	@ManyToMany
 	private List<Artista> artistas = new ArrayList<>();
 	
-	@OneToMany(cascade = CascadeType.PERSIST)
+	@ManyToMany
 	private List<Genero> generos = new ArrayList<>();
 	
 	public Midia() {}
