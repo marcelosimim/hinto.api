@@ -25,13 +25,13 @@ public class Midia implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@Column(nullable = false, length = 255)
+	@Column(nullable = false, length = 125)
 	private String titulo;
 
 	@Column(name = "IMAGEM_URL", nullable = true, length = 255)
 	private String imagemURL;
 	
-	@Column(nullable = true, length = 255)
+	@Column(nullable = true, length = 725)
 	private String sinopse;
 	
 	@Column(nullable = false)

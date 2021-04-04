@@ -1,16 +1,18 @@
 package br.com.hinto.servico.impl;
 
-import br.com.hinto.entidade.dto.MidiaAnimeCriadoDTO;
-import br.com.hinto.entidade.dto.MidiaRetornadoDTO;
-import br.com.hinto.entidade.Midia;
-import br.com.hinto.excecao.DadosIncorretosException;
-import br.com.hinto.servico.MidiaServico;
-import br.com.hinto.repositorio.MidiaDAO;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import br.com.hinto.entidade.Midia;
+import br.com.hinto.entidade.dto.MidiaAnimeCriadoDTO;
+import br.com.hinto.entidade.dto.MidiaFilmeCriadoDTO;
+import br.com.hinto.entidade.dto.MidiaRetornadoDTO;
+import br.com.hinto.excecao.DadosIncorretosException;
+import br.com.hinto.repositorio.MidiaDAO;
+import br.com.hinto.servico.MidiaServico;
 
 @Service
 public class MidiaServicoImpl implements MidiaServico {
@@ -39,6 +41,29 @@ public class MidiaServicoImpl implements MidiaServico {
 
     @Override
     public MidiaRetornadoDTO salvar(MidiaAnimeCriadoDTO dto) {
+        Midia midia = this.toMidia(dto);
+        this.dao.saveAndFlush(midia);
+
+        return this.toDTO(midia);
+    }
+    
+    private Midia toMidia(MidiaFilmeCriadoDTO dto) {
+        Midia midia = new Midia();
+
+        //midia.setAfinidade(dto.getAfinidade());
+        midia.setDataLancamento(dto.getRelease_date());
+        midia.setTipo(dto.getTipo());
+        midia.setImagemURL(dto.getPoster_path());
+        midia.setSinopse(dto.getOverview());
+        midia.setTitulo(dto.getTitle());
+        midia.setArtistas(dto.getArtistas());
+        midia.setGeneros(dto.getGeneros());
+
+        return midia;
+    }
+
+    @Override
+    public MidiaRetornadoDTO salvar(MidiaFilmeCriadoDTO dto) {
         Midia midia = this.toMidia(dto);
         this.dao.saveAndFlush(midia);
 

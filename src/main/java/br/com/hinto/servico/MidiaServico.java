@@ -1,14 +1,14 @@
 package br.com.hinto.servico;
 
-
+import java.util.List;
 
 import br.com.hinto.entidade.dto.MidiaAnimeCriadoDTO;
+import br.com.hinto.entidade.dto.MidiaFilmeCriadoDTO;
 import br.com.hinto.entidade.dto.MidiaRetornadoDTO;
-
-import java.util.List;
 
 public interface MidiaServico {
     public MidiaRetornadoDTO salvar(MidiaAnimeCriadoDTO dto);
+    public MidiaRetornadoDTO salvar(MidiaFilmeCriadoDTO dto);
     public void deletar(Long idMidia);
     public MidiaRetornadoDTO atualizar(MidiaAnimeCriadoDTO midia, Long idMidia);
     public List<MidiaRetornadoDTO> encontrarTodos();
