@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
@@ -33,15 +32,10 @@ public class CargaMidiaAnime {
 	private GeneroServicoImpl generoServico;
 	
 	@Bean
-	public RestTemplate getRestTemplate(RestTemplateBuilder builder) {
-		return builder.build();
-	}
-	
-	@Bean
-	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
+	public CommandLineRunner runCargaAnimes(RestTemplate restTemplate) throws Exception {
 		return args -> {
 			//busca primeiramente os top animes
-			AnimeJSON jsonMidia = restTemplate.getForObject(this.URL_BASE_BUSCA.concat("?order_by=score&limit=5"), AnimeJSON.class);
+			AnimeJSON jsonMidia = restTemplate.getForObject(this.URL_BASE_BUSCA, AnimeJSON.class);
 			LOG.info(jsonMidia.toString());
 			//lista um por um os resultados retornados da API
 			jsonMidia.getResults().forEach(midia -> {

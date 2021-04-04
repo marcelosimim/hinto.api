@@ -1,31 +1,30 @@
-package br.com.hinto.entidade;
+package br.com.hinto.entidade.dto;
 
 import java.io.Serializable;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@Entity(name = "ARTISTA")
-public class Artista implements Serializable {
+import br.com.hinto.entidade.Artista;
 
-	private static final long serialVersionUID = 1L;
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class ArtistaDTO implements Serializable {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	@Column(nullable = false, length = 75)
-	private String nome;
-	@Column(nullable = true, length = 75)
-	private String profissao;
-	
-	public Artista() {}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
+    private static final long serialVersionUID = 1L;
+    
+    private String nome;
+    private String profissao;
+    
+    public ArtistaDTO() {}
+    
+    public ArtistaDTO(Artista artista) {
+    	this.nome = artista.getNome();
+    	this.profissao = artista.getProfissao();
+    }
+    
+    public ArtistaDTO(String nome, String profissao) {
+    	this.nome = nome;
+    	this.profissao = profissao;
+    }
 
 	public String getNome() {
 		return nome;
@@ -47,7 +46,6 @@ public class Artista implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result + ((profissao == null) ? 0 : profissao.hashCode());
 		return result;
@@ -61,12 +59,7 @@ public class Artista implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Artista other = (Artista) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
+		ArtistaDTO other = (ArtistaDTO) obj;
 		if (nome == null) {
 			if (other.nome != null)
 				return false;
@@ -79,5 +72,13 @@ public class Artista implements Serializable {
 			return false;
 		return true;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "ArtistaDTO {"
+				+ "nome=" + nome 
+				+ ", profissao=" + profissao 
+				+ "}";
+	}
+
 }
