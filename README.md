@@ -23,6 +23,7 @@
 
 ###### Verbos para [Usuario] Http da API:
         Criar Usuário	          | POST   | /usuario - conteúdo do corpo da requisição: application/json
+	Autenticar Usuário	  | POST   | /usuario/autenticar - conteúdo do corpo da requisição: application/json com email e senha
   	Atualizar Usuário por ID  | PUT    | /usuario/{id} - conteúdo do corpo da requisição: application/json | variável da URI: Integer id
   	Deletar Usuário por ID	  | DELETE | /usuario/{id} - variável da URI: Integer id
 	Obter Produto por ID      | GET    | /usuario/{id} - variável da URI: Integer id
