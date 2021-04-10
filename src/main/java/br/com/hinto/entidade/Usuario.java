@@ -2,14 +2,21 @@ package br.com.hinto.entidade;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -21,7 +28,7 @@ import br.com.hinto.enumeracao.Sexo;
  * Classe Entidade Usuario.
  */
 @Entity(name = "Usuario")
-public class Usuario implements Serializable {
+public class Usuario implements Serializable, UserDetails {
 
     private static final long serialVersionUID = 1L;
 
@@ -131,6 +138,52 @@ public class Usuario implements Serializable {
     public void setSexo(Sexo sexo) {
         this.sexo = sexo;
     }
+    
+    /**
+     * método padrão do User Details Spring Security, que define os perfis de acesso do usuário.
+     */
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		Set<GrantedAuthority> perfisAcesso = new HashSet<>();
+		
+		perfisAcesso.add(new SimpleGrantedAuthority(Perfil.USUARIO.toString()));
+		
+		return perfisAcesso;
+	}
+	
+	/**
+	 * Os métodos abaixo fazem parte da implementação padrão do Spring Security.
+	 */
+
+	@Override
+	public String getPassword() {
+		return this.senha;
+	}
+
+	@Override
+	public String getUsername() {
+		return this.email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return Boolean.TRUE;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return Boolean.TRUE;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return Boolean.TRUE;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return Boolean.TRUE;
+	}
 
     @Override
     public boolean equals(Object o) {

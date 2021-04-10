@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.hinto.entidade.dto.DadosLoginDTO;
 import br.com.hinto.entidade.dto.UsuarioCriadoDTO;
 import br.com.hinto.entidade.dto.UsuarioRetornadoDTO;
 import br.com.hinto.servico.UsuarioServico;
@@ -32,6 +33,11 @@ public class UsuarioControlador {
 	@PostMapping
 	public UsuarioRetornadoDTO salvar(@Valid @RequestBody UsuarioCriadoDTO usuario) {
 		return this.servico.salvar(usuario);
+	}
+	
+	@PostMapping("/autenticar")
+	public UsuarioRetornadoDTO autenticarUsuario(@Valid @RequestBody DadosLoginDTO dadosLogin) {
+		return this.servico.autenticarUsuario(dadosLogin.getEmail(), dadosLogin.getSenha());
 	}
 
 	@DeleteMapping("/{idUsuario}")
@@ -53,10 +59,4 @@ public class UsuarioControlador {
 	public UsuarioRetornadoDTO encontrarPorId(@PathVariable("idUsuario") Long idUsuario) {
 		return this.servico.encontrarPorId(idUsuario);
 	}
-	
-	@GetMapping("/email={email}")
-	public UsuarioRetornadoDTO encontrarPorEmail(@PathVariable("email") String email) {
-		return this.servico.encontrarPorEmail(email);
-	}
-
 }

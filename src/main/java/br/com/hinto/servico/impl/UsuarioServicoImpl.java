@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import br.com.hinto.entidade.Usuario;
@@ -21,7 +24,7 @@ import br.com.hinto.servico.UsuarioServico;
  * Classe de implementação das regras de negócio Usuario.
  */
 @Service
-public class UsuarioServicoImpl implements UsuarioServico {
+public class UsuarioServicoImpl implements UsuarioServico, UserDetailsService {
 	
 	@Autowired
 	private UsuarioDAO dao;
@@ -131,13 +134,20 @@ public class UsuarioServicoImpl implements UsuarioServico {
 	}
 	
 	@Override
-	public UsuarioRetornadoDTO encontrarPorEmail(String email) {
-		Usuario usuario = this.dao.findByEmail(email);
+	public UsuarioRetornadoDTO autenticarUsuario(String email, String senha) {
+		Usuario usuario = this.dao.findByEmail(email);	
 		
 		if (usuario == null) {
-			throw new DadosIncorretosException("Usuário não encontrado!");
+			throw new DadosIncorretosException("Email Incorreto!");
 		}
-		return this.toDTO(usuario);
+		if (usuario.getSenha().equals(senha)) {
+			return this.toDTO(usuario);
+		}		
+		throw new DadosIncorretosException("Senha Incorreta!");
 	}
 
+	@Override
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		return this.dao.findByEmail(email);
+	}
 }
