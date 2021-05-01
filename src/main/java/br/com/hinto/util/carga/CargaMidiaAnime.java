@@ -35,20 +35,59 @@ public class CargaMidiaAnime {
 	public CommandLineRunner runCargaAnimes(RestTemplate restTemplate) throws Exception {
 		return args -> {
 			//busca primeiramente os top animes
-			AnimeJSON jsonMidia = restTemplate.getForObject(this.URL_BASE_BUSCA, AnimeJSON.class);
-			LOG.info(jsonMidia.toString());
-			//lista um por um os resultados retornados da API
-			jsonMidia.getResults().forEach(midia -> {
-				//busca os generos de cada top anime encontrado
-				AnimeJSON jsonGenero = restTemplate.getForObject(this.URL_BASE_ANIME.concat(midia.getMal_id().toString()), AnimeJSON.class);
-				
-				//mapeia os generos DTO para Genero				
-				List<Genero> generos = this.generoServico.salvarTodos(jsonGenero.getGenres());
-				
-				midia.setGeneros(generos);
-				
-				this.servico.salvar(midia);
-			});
+
+			for(int i =1; i <= 2; i++){
+				AnimeJSON jsonMidia = null;
+
+				boolean erroBase = true;
+
+				while(erroBase){
+					try{
+						jsonMidia = restTemplate.getForObject(this.URL_BASE_BUSCA + i, AnimeJSON.class);
+						erroBase = false;
+					}
+					catch (Exception ex){
+						try {
+							Thread.sleep(5000);
+						} catch (InterruptedException x) {
+							x.printStackTrace();
+						}
+					}
+				}
+				LOG.info(jsonMidia.toString());
+				//lista um por um os resultados retornados da API
+				jsonMidia.getResults().forEach(midia -> {
+					//busca os generos de cada top anime encontrado
+					boolean error = true;
+
+					while(error){
+						try{
+							AnimeJSON jsonGenero = restTemplate.getForObject(this.URL_BASE_ANIME.concat(midia.getMal_id().toString()), AnimeJSON.class);
+							List<Genero> generos = this.generoServico.salvarTodos(jsonGenero.getGenres());
+
+							midia.setGeneros(generos);
+
+							this.servico.salvar(midia);
+							error = false;
+						}
+						catch (Exception e) {
+
+							error = true;
+							try {
+								Thread.sleep(5000);
+							} catch (InterruptedException x) {
+								x.printStackTrace();
+							}
+						}
+					}
+
+
+
+					//mapeia os generos DTO para Genero
+
+				});
+			}
+
 		};
 	}
 }

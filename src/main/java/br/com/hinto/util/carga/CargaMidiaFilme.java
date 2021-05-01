@@ -50,38 +50,83 @@ public class CargaMidiaFilme {
 	@Bean
 	public CommandLineRunner runCargaFilmes(RestTemplate restTemplate) throws Exception {
 		return args -> {
-			FilmeJSON jsonResposta = restTemplate.getForObject(this.URL_BASE_TOP_FILME, FilmeJSON.class);
-			LOG.info(jsonResposta.toString());
-			//busca os generos de cada top filme encontrado
-			jsonResposta.getResults().forEach(filme -> {
-				filme.setPoster_path(this.URL_TMDB_BANNER_FILME.concat(filme.getPoster_path()));
-				FilmeJSON jsonTMDB = restTemplate.getForObject(this.INICIO_URL_BASE_TMDB_FILME.concat(filme.getId().toString()).concat(FIM_URL_BASE_TMDB_FILME), 
-						FilmeJSON.class);
-				//LOG.info(jsonTMDB.toString());
-				//mapeia os generos DTO para Genero				
-				List<Genero> generos = this.generoServico.salvarTodos(jsonTMDB.getGenres());			
-				filme.setGeneros(generos);
-				/**
-				LOG.info(this.URL_BASE_OMDB_FILME.concat(jsonTMDB.getImdb_id()));
-				FilmeJSON jsonOMDB = restTemplate.getForObject(this.URL_BASE_OMDB_FILME.concat(jsonTMDB.getImdb_id()), FilmeJSON.class);
-				LOG.info(jsonOMDB.toString());
-				//trata as strings com nomes dos artistas				
-				List<String> artistasString = Arrays.asList(jsonOMDB.getActors().split(","));
-				String diretor = jsonOMDB.getDirector();
-				
-				List<ArtistaDTO> artistas = new ArrayList<>();
-				
-				artistas.add(new ArtistaDTO(diretor, "diretor"));
-				artistasString.forEach(artista -> {
-					artistas.add(new ArtistaDTO(artista.strip(), "atriz/ator"));
+
+			for(int i = 1 ; i <= 5; i++){
+
+				FilmeJSON jsonResposta = null;
+
+				boolean erroBase = true;
+
+				while(erroBase){
+					try{
+						jsonResposta = restTemplate.getForObject(this.URL_BASE_TOP_FILME + i, FilmeJSON.class);
+						erroBase = false;
+					}
+					catch (Exception ex){
+						LOG.info(">>>>>> " + jsonResposta.toString());
+						try {
+							Thread.sleep(5000);
+						} catch (InterruptedException x) {
+							x.printStackTrace();
+						}
+					}
+				}
+				LOG.info(jsonResposta.toString());
+				//busca os generos de cada top filme encontrado
+				jsonResposta.getResults().forEach(filme -> {
+					boolean erroAttDados = true;
+					FilmeJSON jsonTMDB = null;
+
+					while(erroAttDados){
+						try{
+							filme.setPoster_path(this.URL_TMDB_BANNER_FILME.concat(filme.getPoster_path()));
+							jsonTMDB = restTemplate.getForObject(this.INICIO_URL_BASE_TMDB_FILME.concat(filme.getId().toString()).concat(FIM_URL_BASE_TMDB_FILME),
+									FilmeJSON.class);
+							//LOG.info(jsonTMDB.toString());
+							//mapeia os generos DTO para Genero
+
+							erroAttDados = false;
+						}
+						catch (Exception e) {
+
+							erroAttDados = true;
+							try {
+								Thread.sleep(5000);
+							} catch (InterruptedException x) {
+								x.printStackTrace();
+							}
+						}
+					}
+
+					List<Genero> generos = this.generoServico.salvarTodos(jsonTMDB.getGenres());
+					filme.setGeneros(generos);
+					/**
+					 LOG.info(this.URL_BASE_OMDB_FILME.concat(jsonTMDB.getImdb_id()));
+					 FilmeJSON jsonOMDB = restTemplate.getForObject(this.URL_BASE_OMDB_FILME.concat(jsonTMDB.getImdb_id()), FilmeJSON.class);
+					 LOG.info(jsonOMDB.toString());
+					 //trata as strings com nomes dos artistas
+					 List<String> artistasString = Arrays.asList(jsonOMDB.getActors().split(","));
+					 String diretor = jsonOMDB.getDirector();
+
+					 List<ArtistaDTO> artistas = new ArrayList<>();
+
+					 artistas.add(new ArtistaDTO(diretor, "diretor"));
+					 artistasString.forEach(artista -> {
+					 artistas.add(new ArtistaDTO(artista.strip(), "atriz/ator"));
+					 });
+
+					 List<Artista> artistasSalvos = this.artistaServico.salvarTodos(artistas);
+
+					 filme.setArtistas(artistasSalvos);
+					 **/
+
+					this.midiaServico.salvar(filme);
+
+
 				});
-				
-				List<Artista> artistasSalvos = this.artistaServico.salvarTodos(artistas);
-				
-				filme.setArtistas(artistasSalvos);
-				**/
-				this.midiaServico.salvar(filme);				
-			});
+
+			}
+
 		};
 	}
 }

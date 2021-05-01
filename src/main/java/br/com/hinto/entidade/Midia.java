@@ -31,7 +31,7 @@ public class Midia implements Serializable {
 	@Column(name = "IMAGEM_URL", nullable = true, length = 255)
 	private String imagemURL;
 	
-	@Column(nullable = true, length = 725)
+	@Column(nullable = true, length = 1440)
 	private String sinopse;
 	
 	@Column(nullable = false)
