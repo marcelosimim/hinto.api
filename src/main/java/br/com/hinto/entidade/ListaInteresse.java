@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -56,6 +57,10 @@ public class ListaInteresse implements Serializable {
 
 	public void setMidias(List<Midia> midias) {
 		this.midias = midias;
+	}
+	
+	public void setMidia(Midia midia) {
+		this.midias.add(midia);
 	}
 
 	public void setId(Long id) {

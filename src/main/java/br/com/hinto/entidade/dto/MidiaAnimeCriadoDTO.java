@@ -23,11 +23,11 @@ public class MidiaAnimeCriadoDTO implements Serializable {
     private Date start_date;
     private TipoMidia tipo = TipoMidia.ANIME;
     
-    private List<Artista> artistas = new ArrayList<>();
+    //private List<Artista> artistas = new ArrayList<>();
     private List<Genero> generos = new ArrayList<>();
 
     public MidiaAnimeCriadoDTO(){ }
-    
+    /**
 	public List<Artista> getArtistas() {
 		return artistas;
 	}
@@ -35,7 +35,7 @@ public class MidiaAnimeCriadoDTO implements Serializable {
 	public void setArtistas(List<Artista> artistas) {
 		this.artistas = artistas;
 	}
-	
+	**/
 	public List<Genero> getGeneros() {
 		return generos;
 	}
@@ -137,7 +137,6 @@ public class MidiaAnimeCriadoDTO implements Serializable {
 					+ "image_url=" + image_url + ", " 
 					+ "synopsis=" + synopsis + ", "
 					+ "start_date=" + start_date + ", "
-					+ "artistas= [" + artistas + ", "
 					+ "generos= [" + generos + ", "
 					+ "}";
 	}  

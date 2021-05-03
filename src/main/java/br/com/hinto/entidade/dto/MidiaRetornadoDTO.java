@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import br.com.hinto.entidade.Artista;
 import br.com.hinto.entidade.Genero;
 import br.com.hinto.entidade.Midia;
@@ -20,11 +22,13 @@ public class MidiaRetornadoDTO implements Serializable {
     private String imagemURL;
     private String sinopse;
     private TipoMidia tipo;
+    @JsonFormat(pattern="dd/MM/yyyy")
     private Date dataLancamento;
     private Boolean afinidade;
-    private List<Artista> artistas = new ArrayList<>();
+    //private List<Artista> artistas = new ArrayList<>();
     private List<Genero> generos = new ArrayList<>();
-
+    
+    public MidiaRetornadoDTO() {}
 
     public MidiaRetornadoDTO(Midia midia) {
         this.id = midia.getId();
@@ -34,7 +38,7 @@ public class MidiaRetornadoDTO implements Serializable {
         this.tipo = midia.getTipo();
         this.dataLancamento = midia.getDataLancamento();
         this.afinidade = midia.getAfinidade();
-        this.artistas = midia.getArtistas();
+        //this.artistas = midia.getArtistas();
         this.generos = midia.getGeneros();
     }
 
@@ -81,10 +85,6 @@ public class MidiaRetornadoDTO implements Serializable {
 		return afinidade;
 	}
 
-	public List<Artista> getArtistas() {
-		return artistas;
-	}
-
 	public List<Genero> getGeneros() {
 		return generos;
 	}
@@ -115,10 +115,6 @@ public class MidiaRetornadoDTO implements Serializable {
 
     public void setAfinidade(Boolean afinidade) {
         this.afinidade = afinidade;
-    }
-
-    public void setArtistas(List<Artista> artistas) {
-        this.artistas = artistas;
     }
 
     public void setGeneros(List<Genero> generos) {

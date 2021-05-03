@@ -4,17 +4,16 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-@Entity(name = "ARTISTA")
+//@Entity(name = "ARTISTA")
 public class Artista implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Transient
 	private Long id;
-	@Column(nullable = false, length = 75)
+	@Transient
 	private String nome;
-	@Column(nullable = true, length = 75)
+	@Transient
 	private String profissao;
 	
 	public Artista() {}

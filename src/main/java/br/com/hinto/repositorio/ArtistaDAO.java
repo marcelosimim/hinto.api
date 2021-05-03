@@ -5,8 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import br.com.hinto.entidade.Artista;
 
-@Repository
-public interface ArtistaDAO extends JpaRepository<Artista, Long> {
+
+public interface ArtistaDAO {
 
 	Artista findByNome(String nome);
 }
