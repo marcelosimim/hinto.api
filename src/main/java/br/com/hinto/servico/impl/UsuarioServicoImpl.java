@@ -59,6 +59,16 @@ public class UsuarioServicoImpl implements UsuarioServico, UserDetailsService {
 		return usuario;
 	}
 	
+	@Override
+	public Usuario findById(Long id) {		
+		Usuario usuario = this.dao.findById(id).get();
+		
+		if (usuario == null) {
+			throw new DadosIncorretosException("Usuário não encontrado!");
+		}
+		return usuario;
+	}
+	
 	/**
 	 * cria um objeto de transferencia a partir da entidade.
 	 * @param usuario

@@ -28,7 +28,9 @@ public class ConfigSeg extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
-        httpSecurity.cors().and().csrf().disable();
+        httpSecurity.cors().disable();
+        httpSecurity.csrf().disable();
+        httpSecurity.headers().frameOptions().disable();
 
         httpSecurity.authorizeRequests().anyRequest().permitAll();
 
