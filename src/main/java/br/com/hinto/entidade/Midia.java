@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -45,9 +46,6 @@ public class Midia implements Serializable {
 	private Boolean afinidade;
 	
 	@ManyToMany
-	private List<Artista> artistas = new ArrayList<>();
-	
-	@ManyToMany
 	private List<Genero> generos = new ArrayList<>();
 	
 	public Midia() {}
@@ -58,14 +56,6 @@ public class Midia implements Serializable {
 
 	public void setGeneros(List<Genero> generos) {
 		this.generos = generos;
-	}
-
-	public List<Artista> getArtistas() {
-		return artistas;
-	}
-
-	public void setArtistas(List<Artista> artistas) {
-		this.artistas = artistas;
 	}
 
 	public Long getId() {

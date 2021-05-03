@@ -33,7 +33,7 @@ public class MidiaServicoImpl implements MidiaServico {
         midia.setImagemURL(dto.getImage_url());
         midia.setSinopse(dto.getSynopsis());
         midia.setTitulo(dto.getTitle());
-        midia.setArtistas(dto.getArtistas());
+        //midia.setArtistas(dto.getArtistas());
         midia.setGeneros(dto.getGeneros());
 
         return midia;
@@ -56,7 +56,7 @@ public class MidiaServicoImpl implements MidiaServico {
         midia.setImagemURL(dto.getPoster_path());
         midia.setSinopse(dto.getOverview());
         midia.setTitulo(dto.getTitle());
-        midia.setArtistas(dto.getArtistas());
+        //midia.setArtistas(dto.getArtistas());
         midia.setGeneros(dto.getGeneros());
 
         return midia;
@@ -68,6 +68,21 @@ public class MidiaServicoImpl implements MidiaServico {
         this.dao.saveAndFlush(midia);
 
         return this.toDTO(midia);
+    }
+    
+    public Midia toMidia(MidiaRetornadoDTO dto) {
+        Midia midia = new Midia();
+
+        //midia.setAfinidade(dto.getAfinidade());
+        midia.setDataLancamento(dto.getDataLancamento());
+        midia.setTipo(dto.getTipo());
+        midia.setImagemURL(dto.getImagemURL());
+        midia.setSinopse(dto.getSinopse());
+        midia.setTitulo(dto.getTitulo());
+        //midia.setArtistas(dto.getArtistas());
+        midia.setGeneros(dto.getGeneros());
+
+        return midia;
     }
 
     @Override
@@ -106,6 +121,15 @@ public class MidiaServicoImpl implements MidiaServico {
             throw new DadosIncorretosException("Mídia não encontrada!");
         }
         return this.toDTO(midia);
+    }
+    
+    public Midia findById(Long midiaID) {
+        Midia midia = this.dao.findById(midiaID).get();
+
+        if (midia == null) {
+            throw new DadosIncorretosException("Mídia não encontrada!");
+        }
+        return midia;
     }
 
     private Midia atualizar(MidiaAnimeCriadoDTO dto, Midia midia) {

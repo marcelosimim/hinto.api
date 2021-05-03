@@ -15,7 +15,6 @@ import br.com.hinto.servico.ArtistaServico;
 @Service
 public class ArtistaServicoImpl implements ArtistaServico {
 	
-	@Autowired
 	private ArtistaDAO dao;
 
 	@Override
@@ -35,7 +34,7 @@ public class ArtistaServicoImpl implements ArtistaServico {
 			}
 		});
 		
-		return this.dao.saveAll(artistasCriados);
+		return null;//this.dao.saveAll(artistasCriados);
 	}
 	
 	private Artista toArtista(ArtistaDTO dto) {

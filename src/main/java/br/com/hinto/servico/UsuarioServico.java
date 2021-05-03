@@ -2,6 +2,7 @@ package br.com.hinto.servico;
 
 import java.util.List;
 
+import br.com.hinto.entidade.Usuario;
 import br.com.hinto.entidade.dto.UsuarioCriadoDTO;
 import br.com.hinto.entidade.dto.UsuarioRetornadoDTO;
 
@@ -17,4 +18,5 @@ public interface UsuarioServico {
 	public List<UsuarioRetornadoDTO> encontrarTodos();
 	public UsuarioRetornadoDTO encontrarPorId(Long idUsuario);
 	public UsuarioRetornadoDTO autenticarUsuario(String email, String senha);
+	public Usuario findById(Long id);
 }

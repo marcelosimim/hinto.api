@@ -23,11 +23,11 @@ public class MidiaFilmeCriadoDTO implements Serializable {
     private String title;
     private TipoMidia tipo = TipoMidia.FILME;
     
-    private List<Artista> artistas = new ArrayList<>();
+    //private List<Artista> artistas = new ArrayList<>();
     private List<Genero> generos = new ArrayList<>();
 
     public MidiaFilmeCriadoDTO(){ }
-    
+    /**
 	public List<Artista> getArtistas() {
 		return artistas;
 	}
@@ -35,7 +35,7 @@ public class MidiaFilmeCriadoDTO implements Serializable {
 	public void setArtistas(List<Artista> artistas) {
 		this.artistas = artistas;
 	}
-	
+	**/
 	public List<Genero> getGeneros() {
 		return generos;
 	}
@@ -137,7 +137,6 @@ public class MidiaFilmeCriadoDTO implements Serializable {
 					+ "poster_path=" + poster_path + ", " 
 					+ "overview=" + overview + ", "
 					+ "release_date=" + release_date + ", "
-					+ "artistas= [" + artistas + ", "
 					+ "generos= [" + generos + ", "
 					+ "}";
 	}  
