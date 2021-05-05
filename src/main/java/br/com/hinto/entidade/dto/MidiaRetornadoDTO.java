@@ -8,7 +8,7 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import br.com.hinto.entidade.Artista;
+import br.com.hinto.entidade.Produtor;
 import br.com.hinto.entidade.Genero;
 import br.com.hinto.entidade.Midia;
 import br.com.hinto.enumeracao.TipoMidia;
@@ -25,7 +25,7 @@ public class MidiaRetornadoDTO implements Serializable {
     @JsonFormat(pattern="dd/MM/yyyy")
     private Date dataLancamento;
     private Boolean afinidade;
-    //private List<Artista> artistas = new ArrayList<>();
+    private List<Produtor> produtores = new ArrayList<>();
     private List<Genero> generos = new ArrayList<>();
     
     public MidiaRetornadoDTO() {}
@@ -38,7 +38,7 @@ public class MidiaRetornadoDTO implements Serializable {
         this.tipo = midia.getTipo();
         this.dataLancamento = midia.getDataLancamento();
         this.afinidade = midia.getAfinidade();
-        //this.artistas = midia.getArtistas();
+        this.produtores = midia.getProdutores();
         this.generos = midia.getGeneros();
     }
 
@@ -89,7 +89,15 @@ public class MidiaRetornadoDTO implements Serializable {
 		return generos;
 	}
 
-    public void setId(Long id) {
+    public List<Produtor> getProdutores() {
+		return produtores;
+	}
+
+	public void setProdutores(List<Produtor> produtores) {
+		this.produtores = produtores;
+	}
+
+	public void setId(Long id) {
         this.id = id;
     }
 

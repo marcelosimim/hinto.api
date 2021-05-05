@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import br.com.hinto.entidade.Artista;
+import br.com.hinto.entidade.Produtor;
 import br.com.hinto.entidade.Genero;
 import br.com.hinto.enumeracao.TipoMidia;
 
@@ -23,19 +23,19 @@ public class MidiaAnimeCriadoDTO implements Serializable {
     private Date start_date;
     private TipoMidia tipo = TipoMidia.ANIME;
     
-    //private List<Artista> artistas = new ArrayList<>();
+    private List<Produtor> produtores = new ArrayList<>();
     private List<Genero> generos = new ArrayList<>();
 
     public MidiaAnimeCriadoDTO(){ }
-    /**
-	public List<Artista> getArtistas() {
-		return artistas;
+
+	public List<Produtor> getProdutores() {
+		return produtores;
 	}
 	
-	public void setArtistas(List<Artista> artistas) {
-		this.artistas = artistas;
+	public void setProdutores(List<Produtor> produtores) {
+		this.produtores = produtores;
 	}
-	**/
+
 	public List<Genero> getGeneros() {
 		return generos;
 	}
@@ -137,7 +137,8 @@ public class MidiaAnimeCriadoDTO implements Serializable {
 					+ "image_url=" + image_url + ", " 
 					+ "synopsis=" + synopsis + ", "
 					+ "start_date=" + start_date + ", "
-					+ "generos= [" + generos + ", "
+					+ "produtores= [" + produtores + "], "
+					+ "generos= [" + generos + "], "
 					+ "}";
 	}  
 }

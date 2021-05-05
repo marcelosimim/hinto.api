@@ -2,26 +2,29 @@ package br.com.hinto.entidade.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import br.com.hinto.entidade.Artista;
+import br.com.hinto.entidade.Produtor;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ArtistaDTO implements Serializable {
+public class ProdutorDTO implements Serializable {
 	
     private static final long serialVersionUID = 1L;
     
+    @NotNull
     private String nome;
     private String profissao;
     
-    public ArtistaDTO() {}
+    public ProdutorDTO() {}
     
-    public ArtistaDTO(Artista artista) {
+    public ProdutorDTO(Produtor artista) {
     	this.nome = artista.getNome();
     	this.profissao = artista.getProfissao();
     }
     
-    public ArtistaDTO(String nome, String profissao) {
+    public ProdutorDTO(@NotNull String nome, String profissao) {
     	this.nome = nome;
     	this.profissao = profissao;
     }
@@ -59,7 +62,7 @@ public class ArtistaDTO implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ArtistaDTO other = (ArtistaDTO) obj;
+		ProdutorDTO other = (ProdutorDTO) obj;
 		if (nome == null) {
 			if (other.nome != null)
 				return false;
