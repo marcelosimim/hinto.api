@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -48,8 +47,19 @@ public class Midia implements Serializable {
 	@ManyToMany
 	private List<Genero> generos = new ArrayList<>();
 	
+	@ManyToMany
+	private List<Produtor> produtores = new ArrayList<>();
+	
 	public Midia() {}
 	
+	public List<Produtor> getProdutores() {
+		return produtores;
+	}
+
+	public void setProdutores(List<Produtor> produtores) {
+		this.produtores = produtores;
+	}
+
 	public List<Genero> getGeneros() {
 		return generos;
 	}
@@ -120,8 +130,10 @@ public class Midia implements Serializable {
 		int result = 1;
 		result = prime * result + ((afinidade == null) ? 0 : afinidade.hashCode());
 		result = prime * result + ((dataLancamento == null) ? 0 : dataLancamento.hashCode());
+		result = prime * result + ((generos == null) ? 0 : generos.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((imagemURL == null) ? 0 : imagemURL.hashCode());
+		result = prime * result + ((produtores == null) ? 0 : produtores.hashCode());
 		result = prime * result + ((sinopse == null) ? 0 : sinopse.hashCode());
 		result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
 		result = prime * result + ((titulo == null) ? 0 : titulo.hashCode());
@@ -147,6 +159,11 @@ public class Midia implements Serializable {
 				return false;
 		} else if (!dataLancamento.equals(other.dataLancamento))
 			return false;
+		if (generos == null) {
+			if (other.generos != null)
+				return false;
+		} else if (!generos.equals(other.generos))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -156,6 +173,11 @@ public class Midia implements Serializable {
 			if (other.imagemURL != null)
 				return false;
 		} else if (!imagemURL.equals(other.imagemURL))
+			return false;
+		if (produtores == null) {
+			if (other.produtores != null)
+				return false;
+		} else if (!produtores.equals(other.produtores))
 			return false;
 		if (sinopse == null) {
 			if (other.sinopse != null)
@@ -171,5 +193,4 @@ public class Midia implements Serializable {
 			return false;
 		return true;
 	}
-
 }

@@ -13,10 +13,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
-import br.com.hinto.entidade.Artista;
+import br.com.hinto.entidade.Produtor;
 import br.com.hinto.entidade.Genero;
-import br.com.hinto.entidade.dto.ArtistaDTO;
-import br.com.hinto.servico.impl.ArtistaServicoImpl;
+import br.com.hinto.entidade.dto.ProdutorDTO;
+import br.com.hinto.servico.impl.ProdutorServicoImpl;
 import br.com.hinto.servico.impl.GeneroServicoImpl;
 import br.com.hinto.servico.impl.MidiaServicoImpl;
 
@@ -45,7 +45,7 @@ public class CargaMidiaFilme {
 	@Autowired
 	private GeneroServicoImpl generoServico;
 	@Autowired
-	private ArtistaServicoImpl artistaServico;
+	private ProdutorServicoImpl artistaServico;
 	
 	@Bean
 	public CommandLineRunner runCargaFilmes(RestTemplate restTemplate) throws Exception {

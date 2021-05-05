@@ -33,7 +33,7 @@ public class MidiaServicoImpl implements MidiaServico {
         midia.setImagemURL(dto.getImage_url());
         midia.setSinopse(dto.getSynopsis());
         midia.setTitulo(dto.getTitle());
-        //midia.setArtistas(dto.getArtistas());
+        midia.setProdutores(dto.getProdutores());
         midia.setGeneros(dto.getGeneros());
 
         return midia;
@@ -56,7 +56,7 @@ public class MidiaServicoImpl implements MidiaServico {
         midia.setImagemURL(dto.getPoster_path());
         midia.setSinopse(dto.getOverview());
         midia.setTitulo(dto.getTitle());
-        //midia.setArtistas(dto.getArtistas());
+        midia.setProdutores(dto.getProdutores());
         midia.setGeneros(dto.getGeneros());
 
         return midia;
@@ -79,7 +79,7 @@ public class MidiaServicoImpl implements MidiaServico {
         midia.setImagemURL(dto.getImagemURL());
         midia.setSinopse(dto.getSinopse());
         midia.setTitulo(dto.getTitulo());
-        //midia.setArtistas(dto.getArtistas());
+        midia.setProdutores(dto.getProdutores());
         midia.setGeneros(dto.getGeneros());
 
         return midia;
