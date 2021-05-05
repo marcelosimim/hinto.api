@@ -43,8 +43,7 @@ public class ProdutorServicoImpl implements ProdutorServico {
 		Produtor artista = new Produtor();
 		
 		artista.setId(null);
-		artista.setNome(dto.getNome());
-		artista.setProfissao(dto.getProfissao());
+		artista.setNome(dto.getName());
 		
 		return artista;
 	}
@@ -74,8 +73,7 @@ public class ProdutorServicoImpl implements ProdutorServico {
 	public Produtor atualizarPorId(Long id, ProdutorDTO dto) {
 		Produtor produtor = this.encontrarPorId(id);
 		
-		produtor.setNome(dto.getNome());
-		produtor.setProfissao(dto.getProfissao().isBlank() ? produtor.getProfissao() : dto.getProfissao());
+		produtor.setNome(dto.getName());
 		
 		return this.dao.saveAndFlush(produtor);
 		

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
+import br.com.hinto.entidade.dto.ProdutorDTO;
 import br.com.hinto.entidade.dto.GeneroDTO;
 import br.com.hinto.entidade.dto.MidiaFilmeCriadoDTO;
 
@@ -16,26 +16,16 @@ public class FilmeJSON implements Serializable {
 	
 	private List<MidiaFilmeCriadoDTO> results = new ArrayList<>();
 	private List<GeneroDTO> genres = new ArrayList<>();
+	private List<ProdutorDTO> production_companies = new ArrayList<>();
 	private String imdb_id;
-	private String Actors;
-	private String Director;
-	
 	public FilmeJSON() {}
 
-	public String getActors() {
-		return Actors;
+	public List<ProdutorDTO> getProduction_companies() {
+		return production_companies;
 	}
 
-	public void setActors(String actors) {
-		this.Actors = actors;
-	}
-
-	public String getDirector() {
-		return Director;
-	}
-
-	public void setDirector(String director) {
-		this.Director = director;
+	public void setProduction_companies(List<ProdutorDTO> production_companies) {
+		this.production_companies = production_companies;
 	}
 
 	public String getImdb_id() {
@@ -91,8 +81,8 @@ public class FilmeJSON implements Serializable {
 				+ "aired= [" + genres 
 				+ "]"
 				+ ", imdb_id= " + imdb_id
-				+ ", Actors= " + Actors
-				+ ", Director= " + Director
+				+ "production_companies= [" + production_companies
+				+ "]"
 				+ "}";
 	}
 }

@@ -12,45 +12,32 @@ import br.com.hinto.entidade.Produtor;
 public class ProdutorDTO implements Serializable {
 	
     private static final long serialVersionUID = 1L;
-    
-    @NotNull
-    private String nome;
-    private String profissao;
+
+    private Long id;
+    private String name;
     
     public ProdutorDTO() {}
     
-    public ProdutorDTO(Produtor artista) {
-    	this.nome = artista.getNome();
-    	this.profissao = artista.getProfissao();
-    }
-    
-    public ProdutorDTO(@NotNull String nome, String profissao) {
-    	this.nome = nome;
-    	this.profissao = profissao;
+    public ProdutorDTO(Produtor producer) {
+    	this.name = producer.getNome();
+    	this.id = producer.getId();
     }
 
-	public String getNome() {
-		return nome;
+
+	public String getName() {
+		return name;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getProfissao() {
-		return profissao;
-	}
-
-	public void setProfissao(String profissao) {
-		this.profissao = profissao;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		result = prime * result + ((profissao == null) ? 0 : profissao.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
 
@@ -63,15 +50,10 @@ public class ProdutorDTO implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		ProdutorDTO other = (ProdutorDTO) obj;
-		if (nome == null) {
-			if (other.nome != null)
+		if (name == null) {
+			if (other.name != null)
 				return false;
-		} else if (!nome.equals(other.nome))
-			return false;
-		if (profissao == null) {
-			if (other.profissao != null)
-				return false;
-		} else if (!profissao.equals(other.profissao))
+		} else if (!name.equals(other.name))
 			return false;
 		return true;
 	}
@@ -79,8 +61,7 @@ public class ProdutorDTO implements Serializable {
 	@Override
 	public String toString() {
 		return "ArtistaDTO {"
-				+ "nome=" + nome 
-				+ ", profissao=" + profissao 
+				+ "nome=" + name
 				+ "}";
 	}
 

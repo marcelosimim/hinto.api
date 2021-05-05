@@ -23,17 +23,17 @@ public class MidiaAnimeCriadoDTO implements Serializable {
     private Date start_date;
     private TipoMidia tipo = TipoMidia.ANIME;
     
-    private List<Produtor> produtores = new ArrayList<>();
+    private List<Produtor> producers = new ArrayList<>();
     private List<Genero> generos = new ArrayList<>();
 
     public MidiaAnimeCriadoDTO(){ }
 
 	public List<Produtor> getProdutores() {
-		return produtores;
+		return producers;
 	}
 	
-	public void setProdutores(List<Produtor> produtores) {
-		this.produtores = produtores;
+	public void setProducers(List<Produtor> producers) {
+		this.producers = producers;
 	}
 
 	public List<Genero> getGeneros() {
@@ -137,7 +137,7 @@ public class MidiaAnimeCriadoDTO implements Serializable {
 					+ "image_url=" + image_url + ", " 
 					+ "synopsis=" + synopsis + ", "
 					+ "start_date=" + start_date + ", "
-					+ "produtores= [" + produtores + "], "
+					+ "produtores= [" + producers + "], "
 					+ "generos= [" + generos + "], "
 					+ "}";
 	}  

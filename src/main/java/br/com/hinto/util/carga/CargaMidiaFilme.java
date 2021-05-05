@@ -20,7 +20,7 @@ import br.com.hinto.servico.impl.ProdutorServicoImpl;
 import br.com.hinto.servico.impl.GeneroServicoImpl;
 import br.com.hinto.servico.impl.MidiaServicoImpl;
 
-//@Configuration
+@Configuration
 public class CargaMidiaFilme {
 	
 	@Value("${tmdb.url.base.filme.top}")
@@ -45,7 +45,7 @@ public class CargaMidiaFilme {
 	@Autowired
 	private GeneroServicoImpl generoServico;
 	@Autowired
-	private ProdutorServicoImpl artistaServico;
+	private ProdutorServicoImpl produtorServico;
 	
 	@Bean
 	public CommandLineRunner runCargaFilmes(RestTemplate restTemplate) throws Exception {
@@ -82,7 +82,7 @@ public class CargaMidiaFilme {
 							filme.setPoster_path(this.URL_TMDB_BANNER_FILME.concat(filme.getPoster_path()));
 							jsonTMDB = restTemplate.getForObject(this.INICIO_URL_BASE_TMDB_FILME.concat(filme.getId().toString()).concat(FIM_URL_BASE_TMDB_FILME),
 									FilmeJSON.class);
-							//LOG.info(jsonTMDB.toString());
+							LOG.info(jsonTMDB.toString());
 							//mapeia os generos DTO para Genero
 
 							erroAttDados = false;
@@ -99,6 +99,7 @@ public class CargaMidiaFilme {
 					}
 
 					List<Genero> generos = this.generoServico.salvarTodos(jsonTMDB.getGenres());
+					List<Produtor> produtores = this.produtorServico.salvarTodos(jsonTMDB.getProduction_companies());
 					filme.setGeneros(generos);
 					/**
 					 LOG.info(this.URL_BASE_OMDB_FILME.concat(jsonTMDB.getImdb_id()));

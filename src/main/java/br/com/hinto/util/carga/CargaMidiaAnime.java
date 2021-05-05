@@ -14,8 +14,10 @@ import org.springframework.web.client.RestTemplate;
 import br.com.hinto.entidade.Genero;
 import br.com.hinto.servico.impl.GeneroServicoImpl;
 import br.com.hinto.servico.impl.MidiaServicoImpl;
+import br.com.hinto.servico.impl.ProdutorServicoImpl;
+import br.com.hinto.entidade.Produtor;
 
-//@Configuration
+@Configuration
 public class CargaMidiaAnime {
 	
 	@Value("${url.base.busca.api}")
@@ -30,7 +32,8 @@ public class CargaMidiaAnime {
 	private MidiaServicoImpl servico;
 	@Autowired
 	private GeneroServicoImpl generoServico;
-	
+	@Autowired
+	private ProdutorServicoImpl produtorServico;
 	@Bean
 	public CommandLineRunner runCargaAnimes(RestTemplate restTemplate) throws Exception {
 		return args -> {
@@ -64,7 +67,8 @@ public class CargaMidiaAnime {
 						try{
 							AnimeJSON jsonGenero = restTemplate.getForObject(this.URL_BASE_ANIME.concat(midia.getMal_id().toString()), AnimeJSON.class);
 							List<Genero> generos = this.generoServico.salvarTodos(jsonGenero.getGenres());
-
+							List<Produtor> produtors = this.produtorServico.salvarTodos(jsonGenero.getProducers());
+							midia.setProducers(produtors);
 							midia.setGeneros(generos);
 
 							this.servico.salvar(midia);

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.hinto.entidade.dto.ProdutorDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import br.com.hinto.entidade.dto.GeneroDTO;
@@ -16,6 +17,7 @@ public class AnimeJSON implements Serializable {
 	
 	private List<MidiaAnimeCriadoDTO> results = new ArrayList<>();
 	private List<GeneroDTO> genres = new ArrayList<>();
+	private List<ProdutorDTO> producers = new ArrayList<>();
 	
 	public AnimeJSON() {}
 
@@ -31,15 +33,22 @@ public class AnimeJSON implements Serializable {
 		return genres;
 	}
 
+	public List<ProdutorDTO> getProducers() {
+		return producers;
+	}
+
 	public void setGenres(List<GeneroDTO> genres) {
 		this.genres = genres;
 	}
-
+	public void setProdutors(List<ProdutorDTO> producers) {
+		this.producers = producers;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((genres == null) ? 0 : genres.hashCode());
+		result = prime * result + ((producers == null) ? 0 : producers.hashCode());
 		result = prime * result + ((results == null) ? 0 : results.hashCode());
 		return result;
 	}
@@ -62,6 +71,8 @@ public class AnimeJSON implements Serializable {
 				+ results
 				+ "],"
 				+ "aired= [" + genres 
+				+ "]"
+				+ "producers= [" + producers
 				+ "]"
 				+ "}";
 	}
