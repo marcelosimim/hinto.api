@@ -8,7 +8,7 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import br.com.hinto.entidade.Artista;
+import br.com.hinto.entidade.Produtor;
 import br.com.hinto.entidade.Genero;
 import br.com.hinto.entidade.Midia;
 import br.com.hinto.enumeracao.TipoMidia;
@@ -24,8 +24,8 @@ public class MidiaRetornadoDTO implements Serializable {
     private TipoMidia tipo;
     @JsonFormat(pattern="dd/MM/yyyy")
     private Date dataLancamento;
-    private Boolean afinidade;
-    //private List<Artista> artistas = new ArrayList<>();
+    private Boolean favoritada;
+    private List<Produtor> produtores = new ArrayList<>();
     private List<Genero> generos = new ArrayList<>();
     
     public MidiaRetornadoDTO() {}
@@ -37,8 +37,8 @@ public class MidiaRetornadoDTO implements Serializable {
         this.sinopse = midia.getSinopse();
         this.tipo = midia.getTipo();
         this.dataLancamento = midia.getDataLancamento();
-        this.afinidade = midia.getAfinidade();
-        //this.artistas = midia.getArtistas();
+        this.favoritada = midia.getFavoritada();
+        this.produtores = midia.getProdutores();
         this.generos = midia.getGeneros();
     }
 
@@ -81,15 +81,23 @@ public class MidiaRetornadoDTO implements Serializable {
 		return dataLancamento;
 	}
 
-	public Boolean getAfinidade() {
-		return afinidade;
+	public Boolean getFavoritada() {
+		return favoritada;
 	}
 
 	public List<Genero> getGeneros() {
 		return generos;
 	}
 
-    public void setId(Long id) {
+    public List<Produtor> getProdutores() {
+		return produtores;
+	}
+
+	public void setProdutores(List<Produtor> produtores) {
+		this.produtores = produtores;
+	}
+
+	public void setId(Long id) {
         this.id = id;
     }
 
@@ -113,8 +121,8 @@ public class MidiaRetornadoDTO implements Serializable {
         this.dataLancamento = dataLancamento;
     }
 
-    public void setAfinidade(Boolean afinidade) {
-        this.afinidade = afinidade;
+    public void setFavoritada(Boolean favoritada) {
+        this.favoritada = favoritada;
     }
 
     public void setGeneros(List<Genero> generos) {

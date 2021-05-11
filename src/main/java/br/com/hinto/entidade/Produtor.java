@@ -4,19 +4,20 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-//@Entity(name = "ARTISTA")
-public class Artista implements Serializable {
+@Entity(name = "PRODUTORES")
+public class Produtor implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	@Transient
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	@Transient
+	@Column(nullable = false)
 	private String nome;
-	@Transient
+	@Column
 	private String profissao;
 	
-	public Artista() {}
+	public Produtor() {}
 
 	public Long getId() {
 		return id;
@@ -60,7 +61,7 @@ public class Artista implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Artista other = (Artista) obj;
+		Produtor other = (Produtor) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

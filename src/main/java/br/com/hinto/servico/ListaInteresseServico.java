@@ -13,4 +13,5 @@ public interface ListaInteresseServico {
 	public void deletarPorIdUsuario(Long idUsuario);
 	public ListaInteresse atualizarPorIdUsuario(Long midiaID, Long idUsuario);
 	public ListaInteresse encontrarPorIdUsuario(Long idUsuario);
+	public ListaInteresse listarFavoritosPorIdUsuario(Long id);
 }

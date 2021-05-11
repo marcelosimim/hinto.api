@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -43,13 +42,24 @@ public class Midia implements Serializable {
 	private Date dataLancamento;
 	
 	@Column(nullable = true)
-	private Boolean afinidade;
+	private Boolean favoritada;
 	
 	@ManyToMany
 	private List<Genero> generos = new ArrayList<>();
 	
+	@ManyToMany
+	private List<Produtor> produtores = new ArrayList<>();
+	
 	public Midia() {}
 	
+	public List<Produtor> getProdutores() {
+		return produtores;
+	}
+
+	public void setProdutores(List<Produtor> produtores) {
+		this.produtores = produtores;
+	}
+
 	public List<Genero> getGeneros() {
 		return generos;
 	}
@@ -106,22 +116,24 @@ public class Midia implements Serializable {
 		this.dataLancamento = dataLancamento;
 	}
 
-	public Boolean getAfinidade() {
-		return afinidade;
+	public Boolean getFavoritada() {
+		return favoritada;
 	}
 
-	public void setAfinidade(Boolean afinidade) {
-		this.afinidade = afinidade;
+	public void setAfinidade(Boolean favoritada) {
+		this.favoritada = favoritada;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((afinidade == null) ? 0 : afinidade.hashCode());
+		result = prime * result + ((favoritada == null) ? 0 : favoritada.hashCode());
 		result = prime * result + ((dataLancamento == null) ? 0 : dataLancamento.hashCode());
+		result = prime * result + ((generos == null) ? 0 : generos.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((imagemURL == null) ? 0 : imagemURL.hashCode());
+		result = prime * result + ((produtores == null) ? 0 : produtores.hashCode());
 		result = prime * result + ((sinopse == null) ? 0 : sinopse.hashCode());
 		result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
 		result = prime * result + ((titulo == null) ? 0 : titulo.hashCode());
@@ -137,15 +149,20 @@ public class Midia implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Midia other = (Midia) obj;
-		if (afinidade == null) {
-			if (other.afinidade != null)
+		if (favoritada == null) {
+			if (other.favoritada != null)
 				return false;
-		} else if (!afinidade.equals(other.afinidade))
+		} else if (!favoritada.equals(other.favoritada))
 			return false;
 		if (dataLancamento == null) {
 			if (other.dataLancamento != null)
 				return false;
 		} else if (!dataLancamento.equals(other.dataLancamento))
+			return false;
+		if (generos == null) {
+			if (other.generos != null)
+				return false;
+		} else if (!generos.equals(other.generos))
 			return false;
 		if (id == null) {
 			if (other.id != null)
@@ -156,6 +173,11 @@ public class Midia implements Serializable {
 			if (other.imagemURL != null)
 				return false;
 		} else if (!imagemURL.equals(other.imagemURL))
+			return false;
+		if (produtores == null) {
+			if (other.produtores != null)
+				return false;
+		} else if (!produtores.equals(other.produtores))
 			return false;
 		if (sinopse == null) {
 			if (other.sinopse != null)
@@ -171,5 +193,4 @@ public class Midia implements Serializable {
 			return false;
 		return true;
 	}
-
 }

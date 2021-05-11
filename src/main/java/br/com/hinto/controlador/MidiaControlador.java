@@ -40,4 +40,9 @@ public class MidiaControlador {
     public MidiaRetornadoDTO encontrarPorId(@PathVariable("idMidia") Long idMidia) {
         return this.servico.encontrarPorId(idMidia);
     }
+    
+    @GetMapping("/buscar/{stringBusca}")
+    public List<MidiaRetornadoDTO> buscarTitulosPorString(@PathVariable("stringBusca") String stringBusca) {
+    	return this.servico.buscarPorString(stringBusca);
+    }
 }
