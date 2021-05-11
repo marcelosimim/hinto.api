@@ -24,7 +24,7 @@ public class MidiaRetornadoDTO implements Serializable {
     private TipoMidia tipo;
     @JsonFormat(pattern="dd/MM/yyyy")
     private Date dataLancamento;
-    private Boolean afinidade;
+    private Boolean favoritada;
     private List<Produtor> produtores = new ArrayList<>();
     private List<Genero> generos = new ArrayList<>();
     
@@ -37,7 +37,7 @@ public class MidiaRetornadoDTO implements Serializable {
         this.sinopse = midia.getSinopse();
         this.tipo = midia.getTipo();
         this.dataLancamento = midia.getDataLancamento();
-        this.afinidade = midia.getAfinidade();
+        this.favoritada = midia.getFavoritada();
         this.produtores = midia.getProdutores();
         this.generos = midia.getGeneros();
     }
@@ -81,8 +81,8 @@ public class MidiaRetornadoDTO implements Serializable {
 		return dataLancamento;
 	}
 
-	public Boolean getAfinidade() {
-		return afinidade;
+	public Boolean getFavoritada() {
+		return favoritada;
 	}
 
 	public List<Genero> getGeneros() {
@@ -121,8 +121,8 @@ public class MidiaRetornadoDTO implements Serializable {
         this.dataLancamento = dataLancamento;
     }
 
-    public void setAfinidade(Boolean afinidade) {
-        this.afinidade = afinidade;
+    public void setFavoritada(Boolean favoritada) {
+        this.favoritada = favoritada;
     }
 
     public void setGeneros(List<Genero> generos) {

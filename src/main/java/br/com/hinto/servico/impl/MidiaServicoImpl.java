@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.hinto.entidade.Genero;
 import br.com.hinto.entidade.Midia;
 import br.com.hinto.entidade.dto.MidiaAnimeCriadoDTO;
 import br.com.hinto.entidade.dto.MidiaFilmeCriadoDTO;
@@ -144,4 +145,21 @@ public class MidiaServicoImpl implements MidiaServico {
         }
         return midia;
     }
+
+	@Override
+	public List<MidiaRetornadoDTO> buscarPorString(String stringBusca) {
+		List<Midia> todasMidias = this.dao.findAll();
+		List<Midia> midiasBuscadasPorString = this.dao.findByTituloContainingIgnoreCaseOrSinopseContainingIgnoreCase(stringBusca, stringBusca);
+		
+		for (Midia midia : todasMidias) {
+			for (Genero genero : midia.getGeneros()) {
+				if (genero.getDescricao().contains(stringBusca)) {
+					midiasBuscadasPorString.add(midia);
+				}
+			}
+		}
+		
+		return midiasBuscadasPorString.stream().map(midia -> this.toDTO(midia))
+				.collect(Collectors.toList());
+	}
 }

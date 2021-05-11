@@ -16,4 +16,5 @@ public interface MidiaServico {
     public MidiaRetornadoDTO encontrarPorId(Long idMidia);
     public Midia toMidia(MidiaRetornadoDTO dto);
     public Midia findById(Long midiaID);
+    public List<MidiaRetornadoDTO> buscarPorString(String stringBusca);
 }
