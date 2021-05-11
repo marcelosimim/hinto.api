@@ -1,6 +1,8 @@
 package br.com.hinto.servico.impl;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +31,11 @@ public class ListaInteresseServicoImpl implements ListaInteresseServico {
 	public ListaInteresse salvar(ListaInteresseDTO dto) {
 		ListaInteresse lista = this.toListaInteresse(dto);
 		
-		this.dao.saveAndFlush(lista);
+		ListaInteresse listaBuscada = this.dao.findByUsuarioId(dto.getUsuarioID());
+		
+		if (listaBuscada == null) {
+			this.dao.saveAndFlush(lista);
+		}
 		
 		return lista;
 	}
@@ -94,6 +100,19 @@ public class ListaInteresseServicoImpl implements ListaInteresseServico {
 			return lista;
 		}
         throw new DadosIncorretosException("Lista de interesse não encontrada!");
+	}
+
+	@Override
+	public ListaInteresse listarFavoritosPorIdUsuario(Long id) {
+		ListaInteresse lista = this.dao.findByUsuarioId(id);
+		
+		List<Midia> midiasFavoritadas = lista.getMidias().stream()
+				.filter(midia -> midia.getFavoritada())
+				.collect(Collectors.toList());
+		
+		lista.setMidias(midiasFavoritadas);
+		
+		return lista;
 	}
 
 }
