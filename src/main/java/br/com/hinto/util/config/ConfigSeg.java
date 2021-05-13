@@ -28,9 +28,9 @@ public class ConfigSeg extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
-        httpSecurity.cors().disable();
+        httpSecurity.cors();
         httpSecurity.csrf().disable();
-        httpSecurity.headers().frameOptions().disable();
+        //httpSecurity.headers().frameOptions().disable();
 
         httpSecurity.authorizeRequests().anyRequest().permitAll();
 
@@ -40,7 +40,7 @@ public class ConfigSeg extends WebSecurityConfigurerAdapter {
     @Bean
     CorsConfigurationSource corsConfigurationSource(){
 
-        CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
+        CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedMethods(Arrays.asList(HttpMethod.GET.name(),
                 HttpMethod.POST.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name(), HttpMethod.OPTIONS.name()));
         
