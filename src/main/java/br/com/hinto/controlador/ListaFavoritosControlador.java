@@ -57,4 +57,10 @@ public class ListaFavoritosControlador {
 	public ListaFavoritos listarFavoritosPorIdUsuario(@PathVariable("idUsuario") Long idUsuario) {
 		return this.servico.listarFavoritosPorIdUsuario(idUsuario);
 	}
+	
+	@CrossOrigin(origins = "*")
+	@DeleteMapping("/{idUsuario}/{idMidia}")
+	public ListaFavoritos removerPorIdUsuario(@PathVariable("idMidia") Long midiaID, @PathVariable("idUsuario") Long idUsuario) {
+		return this.servico.removerMidiaPorId(idUsuario, midiaID);
+	}
 }

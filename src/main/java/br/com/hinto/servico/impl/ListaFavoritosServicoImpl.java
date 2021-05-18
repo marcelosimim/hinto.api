@@ -81,7 +81,7 @@ public class ListaFavoritosServicoImpl implements ListaFavoritosServico {
 			this.salvar(lista);
 			return lista;
 		}
-        throw new DadosIncorretosException("Não há registros de listas de interesse com ID informado.");
+        throw new DadosIncorretosException("Não há registros de listas de favoritos com ID informado.");
 	}
 
 	@Override
@@ -106,19 +106,22 @@ public class ListaFavoritosServicoImpl implements ListaFavoritosServico {
 	public ListaFavoritos listarFavoritosPorIdUsuario(Long id) {
 		ListaFavoritos lista = this.dao.findByUsuarioId(id);
 		
-		List<Midia> midiasFavoritadas = lista.getMidias().stream()
-				.filter(midia -> midia.getFavoritada())
-				.collect(Collectors.toList());
-		
-		lista.setMidias(midiasFavoritadas);
-		
 		return lista;
 	}
 
 	@Override
 	public ListaFavoritos removerMidiaPorId(Long idUsuario, Long midiaID) {
-		// TODO Auto-generated method stub
-		return null;
+		ListaFavoritos favoritos = this.dao.findByUsuarioId(idUsuario);
+		
+		Midia midiaEncontrada = favoritos.getMidias().stream()
+				.filter(midia -> midia.getId().equals(midiaID)).findFirst().orElse(null);
+		
+		if (midiaEncontrada != null) {
+			favoritos.getMidias().remove(midiaEncontrada);
+		}
+		this.dao.saveAndFlush(favoritos);
+		
+		return favoritos;
 	}
 
 }
