@@ -51,10 +51,4 @@ public class ListaInteresseControlador {
 	public ListaInteresse encontrarPorIdUsuario(@PathVariable("idUsuario") Long idUsuario) {
 		return this.servico.encontrarPorIdUsuario(idUsuario);
 	}
-	
-	@CrossOrigin(origins = "*")
-	@GetMapping("/favoritos/{idUsuario}")
-	public ListaInteresse listarFavoritosPorIdUsuario(@PathVariable("idUsuario") Long idUsuario) {
-		return this.servico.listarFavoritosPorIdUsuario(idUsuario);
-	}
 }

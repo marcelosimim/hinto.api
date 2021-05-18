@@ -12,6 +12,8 @@ public class ListaInteresseDTO implements Serializable {
 	private Long usuarioID;
 	private Long midiaID;
 	
+	public ListaInteresseDTO() {}
+	
 	public ListaInteresseDTO(@NotNull Long usuarioID, Long midiaID) {
 		super();
 		this.usuarioID = usuarioID;

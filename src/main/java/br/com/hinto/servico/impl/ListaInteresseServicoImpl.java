@@ -101,18 +101,4 @@ public class ListaInteresseServicoImpl implements ListaInteresseServico {
 		}
         throw new DadosIncorretosException("Lista de interesse não encontrada!");
 	}
-
-	@Override
-	public ListaInteresse listarFavoritosPorIdUsuario(Long id) {
-		ListaInteresse lista = this.dao.findByUsuarioId(id);
-		
-		List<Midia> midiasFavoritadas = lista.getMidias().stream()
-				.filter(midia -> midia.getFavoritada())
-				.collect(Collectors.toList());
-		
-		lista.setMidias(midiasFavoritadas);
-		
-		return lista;
-	}
-
 }
